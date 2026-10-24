@@ -1,0 +1,1074 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Carrera política</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800;900&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* Concepto: sala de control de una noche electoral. Paneles oscuros, números grandes tipo rotulación de televisión, el color lo ponen los partidos. */
+:root{
+  --bg:#0A0F1E; --bg2:#0E1530; --panel:#131C3A; --panel2:#18234A; --line:#27335F;
+  --fg:#E9EDF9; --mut:#93A0C8; --dim:#5D6A96; --acc:#FFC93C; --acc-ink:#1A1400;
+  --good:#43D18B; --bad:#FF5C6C;
+  --f-disp:'Big Shoulders Display','Arial Narrow',Impact,sans-serif;
+  --f-body:'Instrument Sans','Segoe UI',system-ui,sans-serif;
+  --f-mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:15px;line-height:1.5;
+  background-image:radial-gradient(1200px 500px at 80% -10%,#1a2760 0%,transparent 60%),radial-gradient(900px 400px at -10% 10%,#2a1850 0%,transparent 55%);
+  background-attachment:fixed;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 40px;min-height:100vh}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--bg)}
+h1,h2,h3{font-family:var(--f-disp);font-weight:800;letter-spacing:.01em;line-height:1;margin:0;text-wrap:balance}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.wrap{max-width:1320px;margin-inline:auto}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.mut{color:var(--mut)} .dim{color:var(--dim)}
+
+/* barra superior */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(10,15,30,.88);backdrop-filter:blur(10px);margin-inline:calc(-1*max(16px,env(safe-area-inset-left,0px)));padding-inline:max(16px,env(safe-area-inset-left,0px));border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:20px;height:58px}
+.brand{font-family:var(--f-disp);font-weight:900;font-size:26px;letter-spacing:.04em;display:flex;align-items:center;gap:10px;white-space:nowrap;background:none;border:0;padding:0}
+.brand i{display:inline-block;width:26px;height:13px;border-radius:26px 26px 0 0;background:conic-gradient(from 270deg at 50% 100%,#E4237F 0 25%,#E1253B 0 40%,#FFC93C 0 52%,#1F8FE0 0 80%,#74C22F 0 100%);}
+nav{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+nav::-webkit-scrollbar{display:none}
+nav button{background:none;border:0;padding:8px 12px;border-radius:8px;color:var(--mut);font-weight:600;white-space:nowrap}
+nav button:hover{color:var(--fg);background:var(--panel)}
+nav button[aria-current="true"]{color:var(--acc-ink);background:var(--acc)}
+.clock{font-family:var(--f-mono);font-size:12px;color:var(--mut);white-space:nowrap}
+.clock b{color:var(--acc);font-weight:500}
+
+main{padding-block:26px 10px}
+.view[hidden]{display:none}
+
+/* piezas */
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px}
+.panel.flat{background:transparent}
+.h-sec{font-size:30px;margin-bottom:4px}
+.eyebrow{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+.btn{background:var(--acc);color:var(--acc-ink);border:0;border-radius:10px;padding:11px 18px;font-weight:700;display:inline-flex;gap:8px;align-items:center;transition:transform .12s}
+.btn:hover{transform:translateY(-1px)}
+.btn.ghost{background:transparent;color:var(--fg);border:1px solid var(--line)}
+.btn.ghost:hover{border-color:var(--mut)}
+.btn.sm{padding:6px 11px;font-size:13px;border-radius:8px}
+.btn[disabled]{opacity:.4;pointer-events:none}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:3px 9px;border-radius:99px;border:1px solid var(--line);font-size:12px;color:var(--mut);background:var(--bg2)}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block;flex:none}
+select,input[type=number],input[type=text]{background:var(--bg2);color:var(--fg);border:1px solid var(--line);border-radius:8px;padding:8px 10px;font:inherit}
+select{max-width:100%}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.sp{flex:1}
+
+/* inicio */
+.hero{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1.2fr);gap:28px;align-items:center;padding-block:10px 24px}
+.hero h1{font-size:clamp(54px,8.5vw,112px);font-weight:900;line-height:.88;text-transform:uppercase}
+.hero h1 em{font-style:normal;color:var(--acc)}
+.hero p{max-width:46ch;color:var(--mut);font-size:17px;margin:16px 0 22px}
+.count{display:flex;gap:10px;margin-bottom:22px}
+.count div{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:8px 14px;text-align:center;min-width:74px}
+.count b{display:block;font-family:var(--f-disp);font-size:38px;line-height:1}
+.count span{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--mut)}
+.hero-hemi{background:linear-gradient(180deg,rgba(19,28,58,.9),rgba(19,28,58,.5));border:1px solid var(--line);border-radius:18px;padding:16px 14px 12px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;justify-content:center;margin-top:8px;font-size:13px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend b{font-family:var(--f-mono);font-weight:500}
+.modes{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:8px}
+.mode{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;text-align:left;display:flex;flex-direction:column;gap:8px;min-height:170px;position:relative;overflow:hidden;transition:border-color .15s,transform .15s}
+.mode:hover{border-color:var(--acc);transform:translateY(-2px)}
+.mode h3{font-size:28px;text-transform:uppercase}
+.mode p{margin:0;color:var(--mut);font-size:14px}
+.mode .tag{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;color:var(--acc);text-transform:uppercase}
+.mode .go{margin-top:auto;font-weight:700;color:var(--acc)}
+.sources{font-size:12.5px;color:var(--dim);margin-top:26px;line-height:1.7}
+.sources a{color:var(--mut)}
+
+/* simulador */
+.sim{display:grid;grid-template-columns:minmax(300px,360px) minmax(0,1fr);gap:18px;align-items:start}
+.ctrl{position:sticky;top:calc(70px + env(safe-area-inset-top,0px));max-height:calc(100vh - 90px);overflow:auto;scrollbar-width:thin}
+.ctrl .panel{padding:14px}
+.prow{display:grid;grid-template-columns:12px minmax(0,1fr) 54px 26px;gap:8px;align-items:center;padding:5px 0}
+.prow label{font-size:13.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.prow .val{font-family:var(--f-mono);font-size:13px;text-align:right}
+.prow .lock{background:none;border:0;opacity:.35;font-size:13px;padding:2px;line-height:1}
+.prow .lock[aria-pressed="true"]{opacity:1;color:var(--acc)}
+.prow .seatmini{grid-column:2/4;font-family:var(--f-mono);font-size:11px;color:var(--mut);margin-top:-4px}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:6px;border-radius:6px;background:var(--line);outline-offset:4px}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--pc,#fff);border:3px solid var(--bg);box-shadow:0 0 0 1px var(--pc,#fff)}
+input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:var(--pc,#fff);border:3px solid var(--bg)}
+.sumline{display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:12px;color:var(--mut);padding-top:8px;border-top:1px solid var(--line);margin-top:6px}
+.field{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
+.field>span{font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);font-family:var(--f-mono)}
+.seg{display:flex;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.seg button{flex:1;background:var(--bg2);border:0;padding:7px 6px;font-size:13px;font-weight:600;color:var(--mut)}
+.seg button[aria-pressed="true"]{background:var(--acc);color:var(--acc-ink)}
+.results{display:flex;flex-direction:column;gap:16px;min-width:0}
+.big-hemi{position:relative}
+.hemi-center{position:absolute;left:0;right:0;bottom:6%;text-align:center;pointer-events:none}
+.hemi-center b{display:block;font-family:var(--f-disp);font-size:clamp(44px,7vw,78px);line-height:.9}
+.hemi-center span{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+.seat-table{width:100%;border-collapse:collapse;font-size:14px}
+.seat-table th{font-family:var(--f-mono);font-weight:500;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);text-align:right;padding:4px 8px}
+.seat-table th:first-child{text-align:left}
+.seat-table td{padding:6px 8px;border-top:1px solid var(--line);text-align:right;font-family:var(--f-mono)}
+.seat-table td:first-child{text-align:left;font-family:var(--f-body);font-weight:600}
+.seat-table .bar{display:inline-block;height:8px;border-radius:4px;vertical-align:middle;margin-right:6px}
+.tw{overflow-x:auto}
+.delta.up{color:var(--good)} .delta.dn{color:var(--bad)}
+.blocs{display:flex;flex-direction:column;gap:12px}
+.bloc .bl{display:flex;justify-content:space-between;font-weight:700;font-size:14px;margin-bottom:5px}
+.bloc .bl b{font-family:var(--f-disp);font-size:26px;line-height:1}
+.track{position:relative;height:22px;background:var(--bg2);border-radius:6px;display:flex;overflow:visible}
+.track i{display:block;height:100%}
+.track i:first-child{border-radius:6px 0 0 6px}
+.track .m176{position:absolute;top:-6px;bottom:-6px;width:2px;background:var(--acc);left:50.286%}
+.track .m176::after{content:"176";position:absolute;top:-16px;left:-12px;font-family:var(--f-mono);font-size:11px;color:var(--acc)}
+.probs{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.prob{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.prob b{display:block;font-family:var(--f-disp);font-size:36px;line-height:1}
+.prob span{font-size:12px;color:var(--mut)}
+.tiles{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:4px}
+.tile{aspect-ratio:1/.88;border-radius:6px;border:0;font-family:var(--f-mono);font-size:10.5px;font-weight:500;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.1;padding:2px;text-shadow:0 1px 2px rgba(0,0,0,.45);transition:background .35s,transform .15s;position:relative;min-width:0}
+.tile:hover{transform:scale(1.12);z-index:3}
+.tile[aria-pressed="true"]{outline:2px solid var(--acc);z-index:2}
+.tile small{font-size:9px;opacity:.9}
+.tile.empty{background:var(--bg2)!important;color:var(--dim);text-shadow:none}
+.tile.blank{visibility:hidden}
+.pdetail h3{font-size:30px}
+.pbars .pb{display:grid;grid-template-columns:90px minmax(0,1fr) 78px;gap:8px;align-items:center;font-size:13px;padding:2px 0}
+.pb .t{height:10px;background:var(--bg2);border-radius:5px;overflow:hidden}
+.pb .t i{display:block;height:100%}
+.pb .n{font-family:var(--f-mono);text-align:right;font-size:12px}
+.ovr{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px 14px;margin-top:10px}
+.ovr label{font-size:12px;color:var(--mut);display:flex;justify-content:space-between}
+
+/* histórico */
+.timeline{display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;scrollbar-width:thin}
+.timeline button{flex:none;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:8px 12px;min-width:76px;text-align:center}
+.timeline button b{display:block;font-family:var(--f-disp);font-size:24px;line-height:1}
+.timeline button span{font-size:11px;color:var(--mut)}
+.timeline button[aria-pressed="true"]{background:var(--acc);border-color:var(--acc);color:var(--acc-ink)}
+.timeline button[aria-pressed="true"] span{color:#5a4800}
+.hist{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:16px;margin-top:14px}
+.chart text{fill:var(--mut);font-family:var(--f-mono);font-size:11px}
+.chart .grid{stroke:var(--line);stroke-width:1}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:12px}
+.fact{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:8px 12px}
+.fact b{display:block;font-family:var(--f-disp);font-size:28px;line-height:1.05}
+.fact span{font-size:11.5px;color:var(--mut)}
+
+/* campaña */
+.setup{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:14px}
+.pick{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;text-align:left;display:flex;flex-direction:column;gap:6px;border-top:5px solid var(--pc)}
+.pick:hover{border-color:var(--pc)}
+.pick h3{font-size:30px}
+.pick .diff{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;color:var(--mut);text-transform:uppercase}
+.pick p{margin:0;font-size:13.5px;color:var(--mut)}
+.game{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:16px}
+.hud{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.hud .fact{flex:1;min-width:110px}
+.ap{display:flex;gap:6px;align-items:center}
+.ap i{width:16px;height:16px;border-radius:50%;background:var(--acc);display:inline-block;transition:opacity .2s}
+.ap i.off{opacity:.18}
+.actions{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px}
+.act{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px;text-align:left;display:flex;flex-direction:column;gap:4px}
+.act:hover:not([disabled]){border-color:var(--acc)}
+.act[disabled]{opacity:.38;pointer-events:none}
+.act b{font-size:15px}
+.act span{font-size:12.5px;color:var(--mut)}
+.act .cost{font-family:var(--f-mono);font-size:11px;color:var(--acc)}
+.log{max-height:230px;overflow:auto;display:flex;flex-direction:column;gap:6px;font-size:13px}
+.log div{padding:7px 10px;background:var(--bg2);border-radius:8px;border-left:3px solid var(--line)}
+.log .good{border-left-color:var(--good)} .log .bad{border-left-color:var(--bad)}
+.modal{position:fixed;inset:0;background:rgba(5,8,18,.78);backdrop-filter:blur(4px);z-index:80;display:flex;align-items:center;justify-content:center;padding:20px}
+.modal[hidden]{display:none}
+.modal .box{background:var(--panel);border:1px solid var(--line);border-top:5px solid var(--acc);border-radius:16px;padding:22px;max-width:560px;width:100%;max-height:92vh;overflow:auto}
+.modal h3{font-size:34px;margin-bottom:8px}
+.modal .opts{display:flex;flex-direction:column;gap:8px;margin-top:14px}
+.modal .opts button{text-align:left;background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:11px 14px}
+.modal .opts button:hover{border-color:var(--acc)}
+.modal .opts b{display:block}
+.modal .opts span{font-size:13px;color:var(--mut)}
+
+/* pactos */
+.stance{display:grid;grid-template-columns:12px minmax(0,1fr) auto auto;gap:10px;align-items:center;padding:6px 0;border-top:1px solid var(--line)}
+.stance:first-child{border-top:0}
+.stance .seg{min-width:164px}
+.verdict{border-radius:14px;padding:16px 18px;border:1px solid var(--line);background:var(--bg2)}
+.verdict h3{font-size:38px}
+.verdict.ok{border-color:var(--good)} .verdict.ok h3{color:var(--good)}
+.verdict.ko{border-color:var(--bad)} .verdict.ko h3{color:var(--bad)}
+.verdict.mid{border-color:var(--acc)} .verdict.mid h3{color:var(--acc)}
+
+/* noche */
+.night-top{display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:12px}
+.pct{font-family:var(--f-disp);font-size:78px;font-weight:900;line-height:.85}
+.pct small{font-size:30px;color:var(--mut)}
+.progress{height:8px;background:var(--bg2);border-radius:4px;overflow:hidden;margin-bottom:14px}
+.progress i{display:block;height:100%;background:var(--acc);width:0;transition:width .3s}
+.ticker{font-family:var(--f-mono);font-size:12.5px;color:var(--mut);min-height:20px}
+.ticker b{color:var(--fg)}
+.night{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:16px}
+.scorebox{display:flex;flex-direction:column;gap:8px}
+.score{display:grid;grid-template-columns:12px minmax(0,1fr) 46px;gap:8px;align-items:center}
+.score .st{height:20px;background:var(--bg2);border-radius:5px;overflow:hidden}
+.score .st i{display:block;height:100%;transition:width .4s}
+.score b{font-family:var(--f-disp);font-size:26px;text-align:right;line-height:1}
+
+.note{font-size:12.5px;color:var(--mut);line-height:1.55}
+.badge-model{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;padding:2px 7px;border-radius:5px;background:var(--bg2);border:1px solid var(--line);color:var(--mut);text-transform:uppercase}
+
+@media (max-width:1020px){
+  .hero{grid-template-columns:1fr}
+  .sim{grid-template-columns:1fr}
+  .ctrl{position:static;max-height:none}
+  .hist,.game,.night{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  .clock{display:none}
+  .grid2{grid-template-columns:1fr}
+  .stance{grid-template-columns:12px minmax(0,1fr)}
+  .stance .seg{grid-column:1/-1}
+  .pct{font-size:58px}
+  .tile{font-size:9px}.tile small{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+
+/* ===== CARRERA ===== */
+.setup{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px}
+.pick{text-align:left;background:var(--panel);border:1px solid var(--line);border-left:5px solid var(--pc,var(--acc));border-radius:12px;padding:12px 14px;color:var(--fg);display:flex;flex-direction:column;gap:4px;transition:transform .12s,border-color .12s}
+.pick:hover{transform:translateY(-2px)}
+.pick[aria-pressed="true"]{border-color:var(--pc);background:var(--panel2);box-shadow:0 0 0 2px var(--pc) inset}
+.pick h3{font-size:26px}.pick p{margin:2px 0 0;font-size:13px;color:var(--mut)}
+.rowline{display:flex;gap:10px;align-items:center;padding:5px 0;border-bottom:1px solid var(--line);font-size:14px}.rowline:last-child{border:0}
+.seg button[aria-pressed="true"]{background:var(--acc);color:var(--acc-ink)}
+summary{cursor:pointer;color:var(--mut);font-size:13px}
+details p{margin:6px 0 0;color:var(--mut);font-size:14px}
+
+.gwrap{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:18px;align-items:start}
+@media (max-width:860px){.gwrap{grid-template-columns:1fr}}
+.gcard{background:var(--panel);border:2px solid var(--line);border-radius:18px;padding:22px;margin-top:8px;touch-action:pan-y;user-select:none;transition:transform .18s,border-color .15s}
+.gcard h3{font-size:36px;margin:8px 0 4px}
+.gc-fig{display:flex;justify-content:center}
+.gopts{display:grid;gap:10px;margin-top:16px}
+.gopts.three{grid-template-columns:repeat(3,minmax(0,1fr))}.gopts.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (max-width:620px){.gopts.three,.gopts.two{grid-template-columns:1fr}}
+.gopt{border:1px solid var(--line);border-radius:12px;padding:12px;color:var(--fg);text-align:left;background:var(--bg2);display:flex;flex-direction:column;gap:3px;font-size:15px}
+.gopt small{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut)}
+.gopt.obey{border-color:#2E6BC9}.gopt.obey:hover{background:#12254a}
+.gopt.disobey{border-color:#B8424F}.gopt.disobey:hover{background:#3a1520}
+.gopt.nuance:hover,.gopt.ev:hover{background:var(--panel2)}
+.swhint{margin:12px 0 0;font-size:12px;color:var(--dim);text-align:center}
+.res{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--acc);border-radius:12px;padding:14px 16px;margin:8px 0 14px}
+.dchip{display:inline-block;margin:2px 6px 0 0;padding:2px 9px;border-radius:99px;font-size:12px;font-family:var(--f-mono)}
+.dchip.up{background:#12382a;color:var(--good)}.dchip.dn{background:#3a1520;color:var(--bad)}
+.atiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
+.atile{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:6px}
+.atile b{font-family:var(--f-disp);font-size:24px;line-height:1.05}.atile span{color:var(--mut);font-size:14px}.atile .btn{margin-top:auto;align-self:flex-start}
+.ghud{position:sticky;top:76px;display:block}
+.stat{display:grid;grid-template-columns:78px minmax(0,1fr) 28px;gap:8px;align-items:center;font-size:13px;margin:5px 0}
+.stat .t,.nb .t{height:8px;background:var(--bg2);border-radius:99px;overflow:hidden}.stat .t i,.nb .t i{display:block;height:100%;border-radius:99px;transition:width .3s}
+.dots{display:flex;gap:4px;margin:6px 0 10px}.dots i{flex:1;height:5px;border-radius:99px;background:var(--bg2)}.dots i.on{background:var(--mut)}.dots i.cur{background:var(--acc)}
+.lad,.lrow{display:grid;grid-template-columns:24px 30px minmax(0,1fr) 12px;gap:8px;align-items:center;padding:3px 6px;border-radius:8px;font-size:13px}
+.lad.me,.lrow.me{background:var(--panel2);outline:1px solid var(--acc)}
+.lad .n,.lrow .n{color:var(--mut);text-align:right}.nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lrow{grid-template-columns:28px 34px minmax(0,1fr) minmax(0,auto) 12px;padding:5px 8px}
+.lrow.cut{border-bottom:2px dashed var(--acc);border-radius:8px 8px 0 0}
+.lad i.in,.lrow i.in{width:8px;height:8px;border-radius:50%;background:var(--good)}.lad i.out,.lrow i.out{width:8px;height:8px;border-radius:50%;background:var(--bg2);border:1px solid var(--line)}
+.night1{max-width:880px;margin:0 auto}
+.nb{display:grid;grid-template-columns:110px minmax(0,1fr) 62px;gap:8px;align-items:center;font-size:13px;margin:5px 0}
+.slots{display:flex;gap:5px;flex-wrap:wrap}.slot{width:22px;height:22px;border-radius:50%;display:inline-block;border:2px solid var(--bg)}
+.fig{display:block}
+</style>
+<header class="top"><div class="wrap"><button class="brand" data-act="home" aria-label="Volver al inicio"><i></i>CARRERA</button><span class="sp"></span></div></header>
+<main class="wrap" id="app"></main>
+<div class="modal" id="modal" hidden></div>
+<script>
+/* ===== DATOS ===== */
+const TOTAL_SEATS = 350;
+const ELECTION_DAY = '2026-11-29';
+
+/* Partidos: nombre, color, posición izquierda-derecha (orden en el hemiciclo), bloque, forma territorial */
+const PT = {
+  POD:{s:'Podemos',name:'Podemos',c:'#9A55D6',lr:5,bloc:'I',shape:'pod'},
+  FA:{s:'Frente Amplio',name:'Frente Amplio',c:'#E4237F',lr:10,bloc:'I',shape:'su'},
+  SU:{s:'Sumar',name:'Sumar',c:'#E4237F',lr:10,bloc:'I',shape:'su'},
+  UP:{s:'Unidas Podemos',name:'Unidas Podemos',c:'#9A55D6',lr:8,bloc:'I',shape:'su'},
+  IU:{s:'PCE / IU',name:'PCE / Izquierda Unida',c:'#C23B4E',lr:9,bloc:'I',shape:'su'},
+  MP:{s:'Más País',name:'Más País',c:'#2FB5A0',lr:12,bloc:'I',shape:'su'},
+  BILDU:{s:'EH Bildu',name:'EH Bildu (HB / Amaiur)',c:'#C6D43A',lr:15,bloc:'N',shape:'bildu'},
+  BNG:{s:'BNG',name:'Bloque Nacionalista Galego',c:'#6CC0F2',lr:17,bloc:'N',shape:'bng'},
+  ERC:{s:'ERC',name:'Esquerra Republicana',c:'#FFB41F',lr:18,bloc:'N',shape:'erc'},
+  AA:{s:'Adelante And.',name:'Adelante Andalucía',c:'#46B86B',lr:19,bloc:'N',shape:'aa'},
+  PSP:{s:'PSP',name:'PSP-US',c:'#E5608C',lr:25,bloc:'I',shape:'psoe'},
+  PSOE:{s:'PSOE',name:'PSOE',c:'#E1253B',lr:30,bloc:'I',shape:'psoe'},
+  PNV:{s:'PNV',name:'Partido Nacionalista Vasco',c:'#0B7A4B',lr:42,bloc:'N',shape:'pnv'},
+  JUNTS:{s:'Junts',name:'Junts per Catalunya',c:'#19C3B1',lr:46,bloc:'N',shape:'junts'},
+  CIU:{s:'CiU',name:'Convergència i Unió',c:'#2B5FB8',lr:47,bloc:'N',shape:'junts'},
+  UPYD:{s:'UPyD',name:'UPyD',c:'#E5258E',lr:48,bloc:'O',shape:'cs'},
+  CDS:{s:'CDS',name:'CDS',c:'#7DBE5E',lr:49,bloc:'O',shape:'cs'},
+  CS:{s:'Cs',name:'Ciudadanos',c:'#F26B21',lr:50,bloc:'O',shape:'cs'},
+  UCD:{s:'UCD',name:'UCD',c:'#2EA0A8',lr:52,bloc:'D',shape:'ucd'},
+  CC:{s:'CC',name:'Coalición Canaria',c:'#F2D21B',lr:55,bloc:'N',shape:'cc'},
+  PP:{s:'PP',name:'Partido Popular',c:'#1F8FE0',lr:70,bloc:'D',shape:'pp'},
+  UPN:{s:'UPN',name:'Unión del Pueblo Navarro',c:'#3A66C2',lr:72,bloc:'D',shape:'upn'},
+  VOX:{s:'Vox',name:'Vox',c:'#74C22F',lr:90,bloc:'D',shape:'vox'},
+  SALF:{s:'SALF',name:'Se Acabó La Fiesta',c:'#F5A524',lr:93,bloc:'O',shape:'salf'},
+  ALI:{s:'Aliança',name:'Aliança Catalana',c:'#E8742A',lr:95,bloc:'O',shape:'ali'},
+  OTROS:{s:'Otros',name:'Otros',c:'#7C86A2',lr:99,bloc:'O',shape:'otros'}
+};
+
+/* Provincias: [id, nombre, escaños, electores válidos (miles, aprox.), fila, col, pp, psoe, vox, sumar, extra]
+   Las bases provinciales son aproximadas (forma territorial del voto de 2023). El modelo las ajusta para cuadrar el resultado nacional. */
+const PROV_RAW = [
+ ['AC','A Coruña',8,700,0,0,38,28,6,14,{bng:9}],
+ ['LU','Lugo',4,230,0,1,46,30,5,8,{bng:7}],
+ ['AS','Asturias',7,570,0,2,32,33,10,17,{}],
+ ['CB','Cantabria',5,310,0,3,40,32,12,8,{}],
+ ['BI','Bizkaia',8,650,0,4,13,24,4,9,{pnv:28,bildu:16}],
+ ['SS','Gipuzkoa',6,400,0,5,9,21,3,9,{pnv:26,bildu:30}],
+ ['PO','Pontevedra',7,600,1,0,38,30,6,11,{bng:9}],
+ ['OR','Ourense',4,240,1,1,46,31,6,8,{bng:6}],
+ ['LE','León',4,260,1,2,36,33,11,8,{}],
+ ['P','Palencia',3,95,1,3,42,31,12,7,{}],
+ ['BU','Burgos',4,220,1,4,40,29,13,8,{}],
+ ['VI','Álava',4,210,1,5,19,25,6,9,{pnv:25,bildu:15}],
+ ['NA','Navarra',5,370,1,6,11,30,8,9,{bildu:17,pnv:5,upn:17}],
+ ['HU','Huesca',3,130,1,7,36,31,14,8,{}],
+ ['LL','Lleida',4,230,1,8,14,25,8,8,{erc:14,junts:20,ali:3}],
+ ['GI','Girona',6,400,1,9,11,24,8,9,{erc:14,junts:23,ali:4}],
+ ['ZA','Zamora',3,100,2,2,45,31,11,7,{}],
+ ['VA','Valladolid',5,290,2,3,39,31,12,11,{}],
+ ['SO','Soria',2,55,2,4,41,28,10,7,{}],
+ ['LO','La Rioja',4,190,2,5,43,32,11,9,{}],
+ ['Z','Zaragoza',7,590,2,6,33,31,13,11,{}],
+ ['TE','Teruel',3,80,2,7,40,30,14,6,{}],
+ ['T','Tarragona',6,410,2,8,17,29,10,11,{erc:12,junts:13,ali:2}],
+ ['B','Barcelona',32,3010,2,9,14,33,7,17,{erc:10,junts:11,ali:1.5}],
+ ['SA','Salamanca',4,190,3,2,44,29,13,7,{}],
+ ['AV','Ávila',3,90,3,3,48,28,12,5,{}],
+ ['SG','Segovia',3,90,3,4,44,29,13,7,{}],
+ ['GU','Guadalajara',3,140,3,5,41,29,16,8,{}],
+ ['CU','Cuenca',3,110,3,6,43,33,13,6,{}],
+ ['CS','Castellón',5,280,3,7,39,30,13,13,{}],
+ ['PM','Baleares',8,610,3,9,36,31,12,14,{}],
+ ['CC','Cáceres',4,255,4,2,38,38,12,6,{}],
+ ['TO','Toledo',6,380,4,3,42,31,15,8,{}],
+ ['M','Madrid',37,3330,4,4,39,26,13,17,{}],
+ ['AB','Albacete',4,215,4,6,40,33,14,7,{}],
+ ['V','Valencia',16,1500,4,7,32,27,12,19,{}],
+ ['BA','Badajoz',5,360,5,2,33,40,12,6,{}],
+ ['CR','Ciudad Real',5,270,5,3,41,33,14,7,{}],
+ ['J','Jaén',5,340,5,4,38,37,12,7,{aa:1.5}],
+ ['GR','Granada',7,600,5,5,38,29,15,11,{aa:2}],
+ ['MU','Murcia',10,820,5,6,41,25,22,9,{}],
+ ['A','Alicante',12,1010,5,7,41,27,17,9,{}],
+ ['H','Huelva',5,270,6,1,34,36,14,8,{aa:2.5}],
+ ['SE','Sevilla',12,1040,6,2,33,36,12,12,{aa:3.5}],
+ ['CO','Córdoba',6,480,6,3,37,30,15,11,{aa:2}],
+ ['MA','Málaga',11,920,6,4,40,27,15,11,{aa:2}],
+ ['AL','Almería',6,400,6,5,41,27,21,6,{aa:1}],
+ ['CA','Cádiz',9,700,7,3,34,30,15,11,{aa:3}],
+ ['CE','Ceuta',1,35,7,4,39,34,23,3,{}],
+ ['ME','Melilla',1,35,7,6,42,25,22,4,{}],
+ ['GC','Las Palmas',8,520,8,1,23,31,11,14,{cc:5}],
+ ['TF','Santa Cruz de Tenerife',7,520,8,0,29,29,9,7,{cc:14}]
+];
+const CAT = {B:1,T:1,GI:1,LL:1};
+const PROV = PROV_RAW.map(r=>{
+  const b = Object.assign({pp:r[6],psoe:r[7],vox:r[8],su:r[9]}, r[10]);
+  const known = Object.values(b).reduce((a,x)=>a+x,0);
+  b.ot = Math.max(1.5, 100-known);
+  return {id:r[0],name:r[1],seats:r[2],w:r[3],r:r[4],c:r[5],cat:!!CAT[r[0]],b};
+});
+
+/* Bloques para el pactómetro */
+const BLOCS = {
+  derecha:{label:'Derecha',ids:['PP','VOX','UPN','CC','SALF','ALI'],cand:'PP'},
+  progresista:{label:'Progresista',ids:['PSOE','FA','POD','ERC','JUNTS','BILDU','PNV','BNG','AA','CC'],cand:'PSOE'}
+};
+
+/* Datos de encuestas del 23-oct-2026 (porcentaje nacional) */
+const POLL_SETS = {
+ media:{label:'Media de 40 encuestas',note:'Su Momento, 23-oct-2026',s:{PP:32.0,PSOE:26.4,VOX:19.0,FA:6.3,POD:3.1,SALF:1.8,ERC:2.2,JUNTS:1.2,BILDU:1.3,PNV:1.0,BNG:1.0,CC:0.4,UPN:0.2,AA:0.9,ALI:0.4},ref:null},
+ sigma:{label:'Sigma Dos / El Mundo',note:'Trabajo de campo 1–14 oct',s:{PP:31.5,PSOE:25.3,VOX:19.5,FA:8.1,POD:2.8,SALF:1.0,ERC:2.5,JUNTS:1.2,BILDU:1.2,PNV:0.9,BNG:0.8,CC:0.5,UPN:0.2,AA:0.8,ALI:0.4},ref:{PP:135,PSOE:104,VOX:67,FA:13,POD:1,ERC:9,JUNTS:7,BILDU:7,PNV:6,BNG:2,CC:1,AA:2}},
+ imop:{label:'IMOP / El Confidencial',note:'13–16 oct',s:{PP:28.5,PSOE:27.1,VOX:20.0,FA:8.9,POD:1.9,SALF:1.2,ERC:2.2,JUNTS:1.2,BILDU:1.3,PNV:1.0,BNG:1.1,CC:0.6,UPN:0.2,AA:0.8,ALI:0.4},ref:{PP:123,PSOE:113,VOX:72,FA:14,POD:1,ERC:8,JUNTS:4,BILDU:6,PNV:5,BNG:2,CC:1}},
+ electo:{label:'EM-Analytics / Electomanía',note:'15–17 oct',s:{PP:31.8,PSOE:27.1,VOX:18.9,FA:6.2,POD:2.0,SALF:1.7,ERC:2.1,JUNTS:1.2,BILDU:1.4,PNV:1.0,BNG:1.0,CC:0.3,UPN:0.2,AA:1.1,ALI:0.4},ref:{PP:134,PSOE:111,VOX:62,FA:10,POD:1,ERC:8,JUNTS:5,BILDU:7,PNV:6,BNG:3,AA:3}},
+ socio:{label:'SocioMétrica / El Español',note:'10–11 oct',s:{PP:32.6,PSOE:26.2,VOX:18.8,FA:5.8,POD:2.8,SALF:2.1,ERC:2.0,JUNTS:1.5,BILDU:1.3,PNV:0.8,BNG:0.9,CC:0.5,UPN:0.2,AA:0.9,ALI:0.4},ref:{PP:141,PSOE:104,VOX:64,FA:8,POD:2,ERC:8,JUNTS:6,BILDU:7,PNV:4,BNG:2,CC:1,UPN:1,AA:1}},
+ db40:{label:'40dB / Prisa',note:'7–8 oct',s:{PP:31.9,PSOE:28.1,VOX:18.9,FA:5.3,POD:2.3,SALF:1.8,ERC:2.0,JUNTS:1.2,BILDU:1.3,PNV:1.0,BNG:1.0,CC:0.4,UPN:0.2,AA:0.8,ALI:0.4},ref:{PP:132,PSOE:111,VOX:69,FA:6,POD:2,ERC:8,JUNTS:7,BILDU:7,PNV:6,BNG:2,CC:1,UPN:1}}
+};
+
+/* Elecciones históricas: [id, % voto, escaños oficiales] — el resto va a "Otros" */
+const HIST_RAW = [
+ {k:'1977',label:'1977',date:'15 jun 1977',turnout:78.8,p:[['UCD',34.4,166],['PSOE',29.3,118],['IU',9.4,20],['PP',8.3,16],['PSP',4.5,6],['CIU',2.8,11],['PNV',1.6,8]],names:{PP:'AP',IU:'PCE'},gov:'Adolfo Suárez (UCD)'},
+ {k:'1979',label:'1979',date:'1 mar 1979',turnout:68.1,p:[['UCD',34.8,168],['PSOE',30.4,121],['IU',10.8,23],['PP',6.1,9],['CIU',2.7,8],['PNV',1.5,7],['BILDU',1.0,3]],names:{PP:'Coalición Democrática',IU:'PCE'},gov:'Adolfo Suárez (UCD)'},
+ {k:'1982',label:'1982',date:'28 oct 1982',turnout:79.9,p:[['PSOE',48.1,202],['PP',26.5,107],['UCD',6.8,11],['IU',4.0,4],['CDS',2.9,2],['CIU',3.7,12],['PNV',1.9,8],['BILDU',1.0,2],['ERC',0.7,1]],names:{PP:'AP-PDP',IU:'PCE'},gov:'Felipe González (PSOE)'},
+ {k:'1986',label:'1986',date:'22 jun 1986',turnout:70.5,p:[['PSOE',44.1,184],['PP',26.0,105],['CDS',9.2,19],['IU',4.6,7],['CIU',5.0,18],['PNV',1.5,6],['BILDU',1.1,5]],names:{PP:'Coalición Popular'},gov:'Felipe González (PSOE)'},
+ {k:'1989',label:'1989',date:'29 oct 1989',turnout:69.7,p:[['PSOE',39.6,175],['PP',25.8,107],['IU',9.1,17],['CDS',7.9,14],['CIU',5.0,18],['PNV',1.2,5],['BILDU',1.1,4]],names:{},gov:'Felipe González (PSOE)'},
+ {k:'1993',label:'1993',date:'6 jun 1993',turnout:76.4,p:[['PSOE',38.8,159],['PP',34.8,141],['IU',9.6,18],['CIU',4.9,17],['PNV',1.2,5],['CC',0.9,4],['BILDU',0.9,2],['ERC',0.8,1]],names:{},gov:'Felipe González (PSOE)'},
+ {k:'1996',label:'1996',date:'3 mar 1996',turnout:77.4,p:[['PP',38.8,156],['PSOE',37.6,141],['IU',10.6,21],['CIU',4.6,16],['PNV',1.3,5],['CC',0.9,4],['BNG',0.9,2],['BILDU',0.7,2],['ERC',0.7,1]],names:{},gov:'José María Aznar (PP)'},
+ {k:'2000',label:'2000',date:'12 mar 2000',turnout:68.7,p:[['PP',44.5,183],['PSOE',34.2,125],['IU',5.4,8],['CIU',4.2,15],['PNV',1.5,7],['BNG',1.3,3],['CC',1.1,4],['ERC',0.8,1]],names:{},gov:'José María Aznar (PP)'},
+ {k:'2004',label:'2004',date:'14 mar 2004',turnout:75.7,p:[['PSOE',42.6,164],['PP',37.7,148],['IU',5.0,5],['CIU',3.2,10],['ERC',2.5,8],['PNV',1.6,7],['CC',0.9,3],['BNG',0.8,2]],names:{},gov:'José Luis Rodríguez Zapatero (PSOE)'},
+ {k:'2008',label:'2008',date:'9 mar 2008',turnout:73.8,p:[['PSOE',43.9,169],['PP',39.9,154],['IU',3.8,2],['CIU',3.0,10],['PNV',1.2,6],['ERC',1.2,3],['BNG',0.8,2],['CC',0.7,2],['UPYD',1.2,1]],names:{},gov:'José Luis Rodríguez Zapatero (PSOE)'},
+ {k:'2011',label:'2011',date:'20 nov 2011',turnout:68.9,p:[['PP',44.6,186],['PSOE',28.8,110],['IU',6.9,11],['UPYD',4.7,5],['CIU',4.2,16],['PNV',1.3,5],['BILDU',1.4,7],['ERC',1.1,3],['BNG',0.8,2],['CC',0.6,2]],names:{BILDU:'Amaiur'},gov:'Mariano Rajoy (PP)'},
+ {k:'2015',label:'2015',date:'20 dic 2015',turnout:73.2,p:[['PP',28.7,123],['PSOE',22.0,90],['UP',20.7,69],['CS',13.9,40],['IU',3.7,2],['ERC',2.4,9],['JUNTS',2.2,8],['PNV',1.2,6],['BILDU',0.9,2],['CC',0.3,1]],names:{UP:'Podemos y confluencias',JUNTS:'Democràcia i Llibertat'},gov:'Mariano Rajoy (PP), tras repetir elecciones'},
+ {k:'2016',label:'2016',date:'26 jun 2016',turnout:66.5,p:[['PP',33.0,137],['PSOE',22.6,85],['UP',21.2,71],['CS',13.1,32],['ERC',2.6,9],['JUNTS',2.0,8],['PNV',1.2,5],['BILDU',0.8,2],['CC',0.3,1]],names:{UP:'Unidos Podemos',JUNTS:'Convergència'},gov:'Mariano Rajoy (PP) hasta la moción de censura de 2018'},
+ {k:'2019a',label:'Abr 2019',date:'28 abr 2019',turnout:71.8,p:[['PSOE',28.7,123],['PP',16.7,66],['CS',15.9,57],['UP',14.3,42],['VOX',10.3,24],['ERC',3.9,15],['JUNTS',1.9,7],['PNV',1.5,6],['BILDU',0.9,4],['CC',0.5,2]],names:{},gov:'Sin investidura: repetición electoral'},
+ {k:'2019b',label:'Nov 2019',date:'10 nov 2019',turnout:66.2,p:[['PSOE',28.0,120],['PP',20.8,89],['VOX',15.1,52],['UP',12.8,35],['ERC',3.6,13],['CS',6.8,10],['JUNTS',2.2,8],['PNV',1.6,6],['BILDU',1.1,5],['MP',2.4,3],['CC',0.5,2],['BNG',0.5,1]],names:{},gov:'Pedro Sánchez (PSOE-UP)'},
+ {k:'2023',label:'2023',date:'23 jul 2023',turnout:70.4,p:[['PP',33.06,137],['PSOE',31.68,121],['VOX',12.38,33],['SU',12.33,31],['ERC',1.89,7],['JUNTS',1.60,7],['BILDU',1.36,6],['PNV',1.12,5],['BNG',0.62,1],['CC',0.46,1],['UPN',0.21,1]],names:{},gov:'Pedro Sánchez (PSOE-Sumar)'}
+];
+
+function buildHist(h){
+  const arr = h.p.map(([id,share,seats])=>({id,share,seats,name:(h.names&&h.names[id])||null}));
+  const sh = arr.reduce((a,x)=>a+x.share,0), se = arr.reduce((a,x)=>a+x.seats,0);
+  arr.push({id:'OTROS',share:Math.max(0.2,+(100-sh).toFixed(2)),seats:TOTAL_SEATS-se,name:null});
+  return {key:h.k,label:h.label,date:h.date,turnout:h.turnout,gov:h.gov,official:true,parties:arr};
+}
+const HIST = HIST_RAW.map(buildHist);
+
+function nowParties(){
+  const ids=['PP','PSOE','VOX','FA','POD','SALF','ERC','JUNTS','BILDU','PNV','BNG','CC','UPN','AA','ALI','OTROS'];
+  return ids.map(id=>({id,share:0,seats:null,name:null}));
+}
+function pollToShares(set){
+  const s = Object.assign({}, set.s); const sum = Object.values(s).reduce((a,x)=>a+x,0);
+  s.OTROS = +(100-sum).toFixed(2); return s;
+}
+
+/* Candidatos del 29N (según prensa, oct-2026) */
+const CANDS = {PP:'Alberto Núñez Feijóo',PSOE:'Pedro Sánchez',VOX:'Santiago Abascal',FA:'Ada Colau',POD:'Irene Montero',ERC:'Gabriel Rufián',JUNTS:'Míriam Nogueras',BILDU:'Oskar Matute',BNG:'Néstor Rego',CC:'Cristina Valido',SALF:'Alvise Pérez'};
+
+/* ===== MOTOR ELECTORAL ===== */
+function shapeVal(P,key){
+  const b=P.b;
+  switch(key){
+    case 'pp': return b.pp;
+    case 'psoe': return b.psoe;
+    case 'vox': return b.vox;
+    case 'su': return b.su;
+    case 'pod': return P.cat?0.01:b.su;
+    case 'ucd': return .75*b.pp+.25*b.psoe;
+    case 'cs': return .55*b.pp+.45*b.psoe;
+    case 'salf': return 1;
+    case 'otros': return b.ot;
+    default: return b[key]||0;
+  }
+}
+
+/* Ajuste proporcional iterativo: provincias suman 100 y el voto nacional (ponderado) coincide con los objetivos */
+function fitProvinces(ctxParties, shares, iters){
+  iters = iters||40;
+  const ids = ctxParties.map(p=>p.id);
+  const wsum = PROV.reduce((a,p)=>a+p.w,0);
+  const X = PROV.map(P=>ids.map(id=>Math.max(1e-6, shapeVal(P,PT[id].shape)) * (shapeVal(P,PT[id].shape)<=0.001?0.0001:1)));
+  const T = ids.map(id=>Math.max(0.0001, shares[id]||0));
+  for(let it=0; it<iters; it++){
+    for(let i=0;i<ids.length;i++){
+      let cur=0; for(let p=0;p<PROV.length;p++) cur+=PROV[p].w*X[p][i];
+      cur/=wsum; if(cur<=0) continue;
+      const f=T[i]/cur; for(let p=0;p<PROV.length;p++) X[p][i]*=f;
+    }
+    for(let p=0;p<PROV.length;p++){
+      let s=0; for(let i=0;i<ids.length;i++) s+=X[p][i];
+      const f=100/s; for(let i=0;i<ids.length;i++) X[p][i]*=f;
+    }
+  }
+  return {ids,X};
+}
+
+/* Reparto de escaños: métodos d'Hondt, Sainte-Laguë, Hare (restos mayores) */
+function allocate(votes, n, method, thr){
+  const ids=Object.keys(votes), tot=ids.reduce((a,i)=>a+votes[i],0);
+  const elig=ids.filter(i=>votes[i]/tot*100>=thr && votes[i]>0);
+  const out={}; ids.forEach(i=>out[i]=0);
+  if(!elig.length||n<=0) return out;
+  if(method==='hare'){
+    const sum=elig.reduce((a,i)=>a+votes[i],0), q=sum/n;
+    const rem=[]; let given=0;
+    elig.forEach(i=>{const f=votes[i]/q; out[i]=Math.floor(f); given+=out[i]; rem.push([i,f-Math.floor(f)]);});
+    rem.sort((a,b)=>b[1]-a[1]); for(let k=0;given<n;k++,given++) out[rem[k%rem.length][0]]++;
+    return out;
+  }
+  const cand=[];
+  elig.forEach(i=>{ for(let k=0;k<n;k++){ const d = method==='sainte' ? (k===0?1.4:2*k+1) : k+1; cand.push([votes[i]/d,i]); }});
+  cand.sort((a,b)=>b[0]-a[0]);
+  for(let k=0;k<n;k++) out[cand[k][1]]++;
+  return out;
+}
+
+/* Simulación completa */
+function simulate(ctxParties, shares, opts){
+  opts=opts||{}; const method=opts.method||'dhondt', thr=opts.thr==null?3:opts.thr, mode=opts.mode||'prov', ov=opts.ov||{};
+  const {ids,X}=fitProvinces(ctxParties, shares, opts.iters||40);
+  const seats={}; ids.forEach(i=>seats[i]=0);
+  const prov=[];
+  for(let p=0;p<PROV.length;p++){
+    const P=PROV[p]; const row={}; let tot=0;
+    ids.forEach((id,i)=>{ let v=X[p][i]; const o=ov[P.id]&&ov[P.id][id]; if(o) v=Math.max(0,v+o); row[id]=v; tot+=v; });
+    ids.forEach(id=>row[id]=row[id]/tot*100);
+    let ps={}; ids.forEach(i=>ps[i]=0);
+    if(mode==='prov'){ ps=allocate(row,P.seats,method,thr); ids.forEach(i=>seats[i]+=ps[i]); }
+    let win=ids[0]; ids.forEach(i=>{ if(row[i]>row[win]) win=i; });
+    prov.push({id:P.id,shares:row,seats:ps,win});
+  }
+  let nat={}; const wsum=PROV.reduce((a,p)=>a+p.w,0);
+  ids.forEach(id=>{ let s=0; prov.forEach((r,p)=>s+=PROV[p].w*r.shares[id]); nat[id]=s/wsum; });
+  if(mode==='unica'){
+    const a=allocate(nat,TOTAL_SEATS,method,thr); ids.forEach(i=>seats[i]=a[i]);
+  }
+  return {seats,prov,nat,mode};
+}
+
+/* Aleatoriedad con semilla (mulberry32). El juego usa un generador global que se puede fijar con setSeed().
+   Las probabilidades usan un generador propio derivado de los datos: mismos datos, mismos números. */
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+let RNG=mulberry32((Date.now()^0x9E3779B9)>>>0);
+function setSeed(n){RNG=mulberry32(n>>>0);}
+function rnd(){return RNG();}
+function hashShares(shares){let h=2166136261;Object.keys(shares).sort().forEach(k=>{const t=k+':'+Math.round(shares[k]*100)+';';for(let i=0;i<t.length;i++){h^=t.charCodeAt(i);h=Math.imul(h,16777619);}});return h>>>0;}
+
+/* Ruido correlacionado para probabilidades */
+function randn(r){r=r||rnd;let u=0,v=0;while(!u)u=r();while(!v)v=r();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);}
+function perturb(shares, sigma, r){
+  const zD=randn(r), zI=randn(r); const out={}; let sum=0;
+  Object.keys(shares).forEach(id=>{
+    const b=PT[id].bloc; const zb=b==='D'?zD:b==='I'?zI:0;
+    const sg=(shares[id]>10?1:1.7)*sigma;
+    out[id]=shares[id]*Math.exp(sg*(0.55*zb+0.85*randn(r))); sum+=out[id];
+  });
+  Object.keys(out).forEach(id=>out[id]=out[id]/sum*100);
+  return out;
+}
+function monteCarlo(ctxParties, shares, opts, N, sigma){
+  N=N||200; sigma=sigma==null?0.07:sigma;
+  const ids=ctxParties.map(p=>p.id); const runs=[]; const r=mulberry32((hashShares(shares)^Math.imul(N,2654435761))>>>0);
+  for(let k=0;k<N;k++){ const s=perturb(shares,sigma,r); runs.push(simulate(ctxParties,s,Object.assign({},opts,{iters:25})).seats); }
+  const stat={}; ids.forEach(id=>{ const v=runs.map(r=>r[id]).sort((a,b)=>a-b); stat[id]={lo:v[Math.floor(N*.1)],med:v[Math.floor(N*.5)],hi:v[Math.min(N-1,Math.floor(N*.9))]}; });
+  const blocSum=(r,ids2)=>ids2.reduce((a,i)=>a+(r[i]||0),0);
+  const pr=(fn)=>runs.filter(fn).length/N;
+  const first=(r,id)=>ids.every(o=>o===id||(r[o]||0)<=(r[id]||0));
+  return {stat,runs:N,
+    ppFirst:pr(r=>first(r,'PP')),
+    psoeFirst:pr(r=>first(r,'PSOE')),
+    derecha:pr(r=>blocSum(r,['PP','VOX','UPN','CC','SALF','ALI'])>=176),
+    ppVox:pr(r=>blocSum(r,['PP','VOX'])>=176),
+    progresista:pr(r=>blocSum(r,['PSOE','FA','SU','POD','UP','ERC','JUNTS','BILDU','PNV','BNG','AA','CC'])>=176),
+    izqEstricta:pr(r=>blocSum(r,['PSOE','FA','SU','POD','UP'])>=176)
+  };
+}
+
+/* Investidura: primera votación mayoría absoluta; segunda, más síes que noes */
+function investiture(seats, stance, cand){
+  let yes=0,no=0,abs=0;
+  Object.keys(seats).forEach(id=>{ const s=(id===cand)?'si':(stance[id]||'no'); if(s==='si')yes+=seats[id]; else if(s==='abs')abs+=seats[id]; else no+=seats[id]; });
+  return {yes,no,abs,first:yes>=176,second:yes>no};
+}
+
+
+
+/* ===== UTILIDADES ===== */
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
+const f1=n=>(Math.round(n*10)/10).toFixed(1).replace('.',',');
+const f2=n=>(Math.round(n*100)/100).toFixed(2).replace('.',',');
+const COL=id=>PT[id]?PT[id].c:'#888';
+const ceil=Math.ceil;
+function lsGet(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v);}catch(e){return d;}}
+function lsSet(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
+
+
+/* ===== PARTIDOS FICTICIOS (sobre geografía y votos reales de 2023) ===== */
+/* Los nombres son parodia. Cada partido hereda la forma territorial de su equivalente real. */
+const FP_TABLE=[
+  {id:'PPE',s:'PPE',name:'Partido Popular Español',c:'#2F6FDE',lr:70,bloc:'D',shape:'pp',sh:33.06,play:true,tag:'Todos dicen ser el centro. Este tiene mapa de carreteras.'},
+  {id:'PSOP',s:'PSOP',name:'Partido Socialista Obrero Progresista',c:'#D93A4A',lr:30,bloc:'I',shape:'psoe',sh:31.68,play:true,tag:'Siempre es «el proyecto de país». Congreso cada dos años.'},
+  {id:'VPV',s:'VPV',name:'Vanguardia Patria Viva',c:'#6DB33F',lr:90,bloc:'D',shape:'vox',sh:12.38,play:true,tag:'Grita más que nadie y le sale a cuenta.'},
+  {id:'FP',s:'FP',name:'Frente Plural',c:'#D7338A',lr:10,bloc:'I',shape:'su',sh:9.5,play:true,tag:'Seis siglas dentro de una. Reunión para decidir quién habla.'},
+  {id:'PCS',s:'PCS',name:'Partido Comunista Socialista',c:'#9A55D6',lr:5,bloc:'I',shape:'pod',sh:2.83,play:true,tag:'Asambleas eternas. Tiene razón, pero tarde.'},
+  {id:'ESO',s:'ESO',name:'Esquerra Soberana',c:'#F5A623',lr:18,bloc:'N',shape:'erc',sh:1.89,play:false},
+  {id:'UXC',s:'UxC',name:'Units per Catalunya',c:'#22C4B0',lr:46,bloc:'N',shape:'junts',sh:1.6,play:false},
+  {id:'EHA',s:'EHA',name:'Euskal Herria Aurrera',c:'#C6D43A',lr:15,bloc:'N',shape:'bildu',sh:1.36,play:false},
+  {id:'PVT',s:'PVT',name:'Partido Vasco Tradicional',c:'#0B7A4B',lr:42,bloc:'N',shape:'pnv',sh:1.12,play:false},
+  {id:'BGU',s:'BGU',name:'Bloque Galego Unido',c:'#6CC0F2',lr:17,bloc:'N',shape:'bng',sh:0.62,play:false},
+  {id:'CN',s:'CN',name:'Canarias Nuestra',c:'#F2D21B',lr:55,bloc:'N',shape:'cc',sh:0.46,play:false},
+  {id:'UNF',s:'UNF',name:'Unión Navarra Foral',c:'#4A74C9',lr:72,bloc:'D',shape:'upn',sh:0.21,play:false}
+];
+FP_TABLE.forEach(p=>{PT[p.id]={s:p.s,name:p.name,c:p.c,lr:p.lr,bloc:p.bloc,shape:p.shape};});
+const CTX={parties:FP_TABLE.map(p=>({id:p.id})).concat([{id:'OTROS'}])};
+const BASE23=(function(){const s={};FP_TABLE.forEach(p=>s[p.id]=p.sh);s.OTROS=3.29;return s;})();
+const PLAYABLE_IDS=FP_TABLE.filter(p=>p.play).map(p=>p.id);
+const PROV_IDX={};PROV.forEach((p,i)=>PROV_IDX[p.id]=i);
+const BASE_RES=simulate(CTX.parties,BASE23,{method:'dhondt',thr:3,mode:'prov'});
+function baseSeats(party,prov){return BASE_RES.prov[PROV_IDX[prov]].seats[party]||0;}
+
+/* ===== CONSTANTES ===== */
+const TURNS=8, MAX_LEG=4;
+const STAT_NAMES={L:'Lealtad',C:'Convicción',B:'Base',F:'Fama'};
+const STAT_HELP={L:'Lo bien que te ven en la dirección del partido.',C:'Cuánto de ti queda cuando obedeces. No da escaños, pero marca quién eres.',B:'Tu apoyo entre los militantes y los vecinos. Mueve votos en tu provincia.',F:'Cuánta gente sabe quién eres. Ayuda a subir en la lista.'};
+const NOMBRES_H=['Alberto','Manuel','Javier','Carlos','Sergio','Pablo','Rubén','Andrés','Ignacio','Álvaro','Raúl','Ángel','Joaquín','Fermín','Eduardo','Tomás','Rafael','Hugo','Marcos','Julián'];
+const NOMBRES_M=['Marta','Lucía','Carmen','Elena','Pilar','Nuria','Rocío','Beatriz','Irene','Silvia','Teresa','Cristina','Sonia','Alicia','Mónica','Patricia','Gloria','Inés','Noelia','Amparo'];
+const APELLIDOS=['García','Fernández','López','Martínez','Sánchez','Pérez','Gómez','Ruiz','Díaz','Moreno','Álvarez','Romero','Navarro','Torres','Domínguez','Gil','Vázquez','Serrano','Ramos','Blanco','Molina','Castro','Ortega','Rubio','Marín','Sanz','Iglesias','Medina','Cortés','Garrido'];
+
+/* ===== ALEATORIEDAD GUARDABLE (el estado va dentro de la partida) ===== */
+let G=null;
+function grnd(){let a=(G.rs=(G.rs+0x6D2B79F5)|0);let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;}
+const gint=(a,b)=>a+Math.floor(grnd()*(b-a+1));
+const gpick=arr=>arr[Math.floor(grnd()*arr.length)];
+const gnorm=()=>randn(grnd);
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const score=o=>.34*o.L+.33*o.B+.33*o.F;
+function fullName(female){return gpick(female?NOMBRES_M:NOMBRES_H)+' '+gpick(APELLIDOS)+' '+gpick(APELLIDOS);}
+
+/* ===== RIVALES ===== */
+const ARCH={
+  hijo:{n:'El hijo del alcalde',L:[18,38],B:[12,30],F:[38,62],g:[.8,.6,1.5],f:'Su apellido abre puertas. Su currículum, no tanto.'},
+  sobri:{n:'La sobrina del barón',L:[40,62],B:[15,32],F:[20,40],g:[1.6,.7,.8],f:'Nadie sabe qué hace, pero todos saben de quién es.'},
+  sindi:{n:'El sindicalista',L:[15,32],B:[42,64],F:[18,36],g:[.6,1.6,.8],f:'Conoce cada bar y cada comité de empresa.'},
+  fiel:{n:'La fiel de la ejecutiva',L:[45,66],B:[12,28],F:[10,26],g:[1.4,.7,.6],f:'Nunca ha dicho una frase que no hubiera dicho otro antes.'},
+  tele:{n:'El tertuliano',L:[14,30],B:[8,22],F:[48,68],g:[.6,.5,1.8],f:'Opina de todo en tres cadenas. En ninguna con matices.'},
+  vet:{n:'El veterano',L:[40,58],B:[40,58],F:[30,48],g:[.3,.2,.1],f:'Lleva tres legislaturas esperando que le toque.'},
+  joven:{n:'La joven promesa',L:[14,28],B:[14,28],F:[14,28],g:[1.5,1.5,1.5],f:'Crece rápido y no pide permiso.'},
+  gris:{n:'El gris',L:[28,42],B:[28,42],F:[20,34],g:[1.0,1.0,.8],f:'Ni suma ni resta. Ahí sigue, indestructible.'}
+};
+const ARCH_KEYS=Object.keys(ARCH);
+let RIV_N=0;
+function newRival(arch,level){
+  const a=ARCH[arch]; const female=grnd()<.5; const lv=level||0;
+  const r={id:'r'+(++G.rid),name:fullName(female),look:gint(1,999999),arch:arch,female:female,
+    L:gint(a.L[0],a.L[1])+lv,B:gint(a.B[0],a.B[1])+lv,F:gint(a.F[0],a.F[1])+lv,grudge:0,ally:false};
+  return r;
+}
+
+/* ===== PARTIDA ===== */
+function poolSize(party,prov){return clamp(Math.round(3.6*baseSeats(party,prov))+7,8,60);}
+function newGame(o){
+  const seed=(o.seed>>>0)||1;
+  G={v:1,rs:seed,seed:seed,rid:0,party:o.party,prov:o.prov,name:o.name||'',female:!!o.female,look:(seed*7919)%999983+1,
+     leg:1,turn:1,phase:'card',st:{L:22,C:50,B:20,F:14},nat:Object.assign({},BASE23),rivals:[],used:[],log:[],
+     card:null,offer:[],last:'',camp:0,listNoise:null,list:null,pos:null,el:null,night:null,hist:[],done:false,out:null,flags:{}};
+  if(!G.name)G.name=fullName(G.female);
+  const n=poolSize(G.party,G.prov)-1;
+  for(let i=0;i<n;i++)G.rivals.push(newRival(ARCH_KEYS[i%ARCH_KEYS.length]));
+  nextCard(); return G;
+}
+function provIdx(){return PROV_IDX[G.prov];}
+function ovFor(){const ov={};ov[G.prov]={};ov[G.prov][G.party]=(G.st.B-25)/35+G.camp;return ov;}
+function runSim(shares){return simulate(CTX.parties,shares,{method:'dhondt',thr:3,mode:'prov',ov:ovFor()});}
+let _pm={k:'',v:0};
+function projSeats(){const k=JSON.stringify([G.nat,G.st.B,G.camp,G.prov,G.party].map(x=>typeof x==='object'?Object.keys(x).map(i=>Math.round(x[i]*100)):x));
+  if(_pm.k!==k){_pm={k:k,v:runSim(G.nat).prov[provIdx()].seats[G.party]||0};}return _pm.v;}
+function pool(){return [{id:'me',me:true,name:G.name,look:G.look,female:G.female,L:G.st.L,C:G.st.C,B:G.st.B,F:G.st.F}].concat(G.rivals);}
+function ranking(noisy){
+  return pool().map(o=>({o:o,s:score(o)+(noisy&&G.listNoise?(G.listNoise[o.id]||0):0)})).sort((a,b)=>b.s-a.s||(a.o.id<b.o.id?-1:1));
+}
+function myPos(noisy){return ranking(noisy).findIndex(x=>x.o.me)+1;}
+const snap=()=>Object.assign({},G.st);
+function diffFrom(b){return {L:Math.round(G.st.L-b.L),C:Math.round(G.st.C-b.C),B:Math.round(G.st.B-b.B),F:Math.round(G.st.F-b.F)};}
+function applyDelta(d){
+  G.st.L=clamp(G.st.L+d[0],0,100);G.st.C=clamp(G.st.C+d[1],0,100);G.st.B=clamp(G.st.B+d[2],0,100);G.st.F=clamp(G.st.F+d[3],0,100);
+}
+
+/* ===== CARTAS ===== */
+function oc(id,t,x,o,n,d){return {id:id,kind:'orden',t:t,x:x,o:[
+  {k:'obey',l:o[0],d:o[1],r:o[2]},{k:'nuance',l:n[0],d:n[1],r:n[2]},{k:'disobey',l:d[0],d:d[1],r:d[2]}]};}
+function ev(id,t,x,a,b){return {id:id,kind:'evento',t:t,x:x,o:[{l:a[0],d:a[1],r:a[2]},{l:b[0],d:b[1],r:b[2]}]};}
+const ORDERS=[
+ oc('carteles','Carteles hasta el amanecer','La secretaria provincial quiere el barrio forrado antes del puente. Te dan pegamento, una escalera prestada y la promesa de un bocadillo.',
+   ['Pegar todo el barrio',[3,-1,4,1],'Barrio forrado. Tienes pegamento hasta en las pestañas.'],['Pegar la mitad y dormir',[1,0,2,0],'La mitad del barrio luce cartel. La otra mitad, tu cara de sueño.'],['Irte a casa',[-4,2,0,0],'Duermes como un niño. La secretaria, no.']),
+ oc('aplaudir','Aplaudir hasta que duelan las manos','El candidato lee el mismo discurso por quinta vez esta semana. Te piden primera fila y cara de emoción.',
+   ['Aplaudir con lágrimas',[3,-2,0,2],'Sales en la foto. Nadie nota que lloras de aburrimiento.'],['Aplaudir con la boca cerrada',[1,0,0,1],'Dicen que tienes «sobriedad». Es sueño.'],['Quedarte sentado',[-4,2,0,3],'Sales en la foto: uno sentado entre mil de pie. Famoso por una tarde.']),
+ oc('recorte','Defender un recorte en la radio local','La dirección ha bajado una partida que a ti tampoco te gusta. Te mandan a explicarlo con una sonrisa.',
+   ['Defenderlo con una sonrisa',[4,-4,0,2],'Sonríes tanto que algún oyente cree que es una oferta.'],['Decir que «hay que matizar»',[1,-1,0,1],'«Hay que matizar» es lo más largo que nadie recuerda de ti.'],['Decir lo que piensas',[-5,4,1,4],'Aplauso en el bar. Llamada de la ejecutiva por la tarde.']),
+ oc('afiliados','Cien afiliados nuevos antes del congreso','Cada carné nuevo es un voto interno. A nadie le importa de dónde salen.',
+   ['Llenar autobuses de jubilados',[4,-3,2,0],'Cien carnés. Dos preguntan si hay merienda.'],['Apuntar a familiares',[2,-1,1,0],'Tu cuñado ahora es del partido. Va a opinar.'],['Negarte',[-4,3,1,0],'Tu conciencia respira mejor. Tu carrera, algo peor.']),
+ oc('cena','Cena con el barón en la sala de atrás','Pagan unos «amigos del partido». Nadie pregunta cuáles.',
+   ['Ir y reír sus chistes',[4,-2,0,1],'El barón te recuerda como «el simpático». Es un comienzo.'],['Ir y pedir agua',[1,0,0,0],'Pides agua en una cena de marisco. Te miran como a un forense.'],['No ir',[-3,2,1,0],'Cenas en casa. Te lo recordarán dentro de dos años.']),
+ oc('negar','Negar lo que ya ha visto todo el mundo','Un vídeo muestra lo que todos vieron. La dirección pide negarlo en redes sin pestañear.',
+   ['Negarlo todo',[3,-5,0,-1],'El vídeo sigue ahí. Tú también, negándolo.'],['Compartir un gato y no decir nada',[1,-2,0,0],'Compartes un gato. Nadie entiende nada.'],['Decir la verdad',[-6,5,2,3],'Te llaman traidor. Te llaman honesto. Los dos sin cariño.']),
+ oc('acto','Llenar la sala de un acto','Han reservado el salón grande. Se han apuntado once personas y un perro.',
+   ['Movilizar a tu barrio',[3,-1,4,0],'Llenas la sala. Los asistentes preguntan cuándo es el sorteo.'],['Hacer la foto en ángulo',[1,0,1,1],'Con el encuadre adecuado parece una plaza de toros.'],['No hacer nada',[-3,1,-1,0],'Once personas y un perro. El perro se va a mitad.']),
+ oc('alcalde','Abrazarte al alcalde al que llevas años insultando','La dirección quiere un pacto de gobierno en tu pueblo con quien llevas años llamando incompetente.',
+   ['Abrazarte al alcalde',[4,-3,-1,1],'Foto de abrazo. Sus votantes lo olvidan. Los tuyos, no.'],['Hablar de «responsabilidad»',[2,-1,0,0],'«Responsabilidad»: la palabra con la que se vende lo que no gusta.'],['Negarte al pacto',[-4,4,2,1],'Tus bases te aplauden. El pacto sale sin ti.']),
+ oc('baile','Subir un vídeo bailando','La dirección cree que el partido llega poco a los jóvenes y quiere tu baile el viernes por la tarde.',
+   ['Bailar con la mejor sonrisa',[3,-2,0,4],'El vídeo es viral por razones que no te gustan.'],['Bailar a escondidas',[1,0,0,2],'Bailas tan mal que da ternura.'],['Negarte',[-2,2,0,0],'Tu pudor te honra. Sin un solo me gusta.']),
+ oc('mesa','Una mesa informativa un sábado','Sol, un toldo y diez vecinos que pasan de largo. Lo de siempre.',
+   ['Aguantar la mañana entera',[2,0,4,1],'Convences a una señora. Que ya era del partido.'],['Montarla una hora',[1,0,2,0],'Una hora de mesa, una hora de dignidad.'],['Irte de cañas',[-2,1,1,0],'En el bar hay más votantes que en la mesa.']),
+ oc('voto','Votar a una delegada que no conoces','Te piden votar a una candidata en la asamblea. No sabes quién es. Quien te lo pide, sí.',
+   ['Votar lo que te dicen',[4,-3,0,0],'Votas sin leer el nombre. Es tradición.'],['Abstenerte',[1,0,0,0],'Te abstienes con cara de profunda reflexión.'],['Votar a la otra',[-4,3,3,0],'Tu voto es secreto. Tus gestos, no.']),
+ oc('sede','Mover mesas en la sede','Se ha roto la calefacción y hay que mover muebles, pintar y fregar. Nadie recuerda quién manda aquí.',
+   ['Remangarte de verdad',[2,0,4,0],'La sede huele a pintura. Tú, a militancia.'],['Dirigir desde la puerta',[1,0,2,0],'Dirigir es una forma de trabajar. Mirar, otra.'],['Hacerte el ocupado',[-2,1,0,0],'Estás muy ocupado respondiendo a un mensaje de tu madre.']),
+ oc('reunion','Reunión de seis horas','Se debate el orden del día. Luego, el orden de los puntos del orden del día.',
+   ['Aguantar hasta el final',[3,0,1,0],'Sales con una moción aprobada y sin ganas de vivir.'],['Irte antes del café',[1,0,0,0],'Te vas antes del café. Te lo perdonan. Lo del café, no.'],['Dormirte',[-3,1,0,1],'Alguien te hace una foto roncando. Ya te conocen.']),
+ oc('maletero','Llevar al candidato en tu coche','El número uno visita tu pueblo y buscan quien le lleve el equipaje y le abra la puerta.',
+   ['Cargar maletas y sonreír',[3,-1,0,2],'Le abres la puerta. Te llama «chaval». Te vale.'],['Llevarle y no hablar',[1,0,0,1],'Treinta kilómetros sin una palabra. Ambos contentos.'],['Decirle que vaya en taxi',[-4,2,0,1],'Va en taxi. Se lo cobran al partido.']),
+ oc('acusar','Señalar a un compañero «demasiado crítico»','La ejecutiva sospecha de un compañero que pregunta mucho. Quieren un testimonio amable y sin pruebas.',
+   ['Señalarlo',[5,-6,0,0],'Lo expulsan. A ti te premian. Duermes mal, pero con descuento.'],['Decir que no sabes nada',[1,-1,0,0],'«No sé nada» es la defensa más antigua de la política.'],['Defenderlo',[-6,6,2,1],'Compañero salvado. Te quedas solo en la bancada.'])
+];
+const EVENTS=[
+ ev('periodista','Te llama un periodista','Quiere saber qué opinas del presidente provincial. Tienes diez segundos para ser interesante.',
+   ['Hablar claro',[-3,3,0,5],'Titular: «Un militante se rebela». Ya eres un nombre.'],['No contestar',[1,0,0,-1],'Cuelgas. Escribe que no supiste qué decir.']),
+ ev('rumor','Un rival cuenta cosas de ti','Dicen que no te dejaste ver en el último acto. Es cierto, pero no es justo.',
+   ['Responder en público',[-2,2,0,3],'Respondes con elegancia. La gente solo recuerda que respondiste.'],['Ignorarlo',[0,0,-2,-2],'Callas. Nadie sabe que es mentira.']),
+ ev('concejal','El concejal de urbanismo tiene un abogado caro','Tiene también una casa en la sierra de la que nunca hablaba.',
+   ['Defenderlo',[3,-3,0,-2],'Lo defiendes de corazón. De cartera, lo hace él.'],['Pedir su dimisión',[-3,3,2,3],'Dimite. Te mira en el pasillo. No sonríe.']),
+ ev('baron','El barón te invita a su despacho','Quiere conocer a «la gente joven». Tiene un café y mucha memoria.',
+   ['Ir con un regalo',[4,-2,0,1],'Un buen regalo es el mejor currículum. Era un libro de cocina.'],['Ir con ideas',[1,2,0,1],'Le gustan tus ideas. No tanto que sean tuyas.']),
+ ev('vecina','Una vecina te para en la calle','Quiere que le arregles la farola, la acera y a su yerno.',
+   ['Prometer ayuda',[0,-1,4,0],'Prometes mucho. La acera sigue rota.'],['Explicar que no mandas',[0,2,1,0],'Sinceridad inútil. Te cae mejor que el que mintió.']),
+ ev('presupuesto','La ejecutiva recorta tu agrupación','Menos presupuesto, menos pegamento, menos sede.',
+   ['Protestar',[-2,2,2,1],'Protestas con razón. La razón no paga pegamento.'],['Callar y apretar',[2,-1,0,0],'Callas. Pegas con saliva.']),
+ ev('cartel','Tu cara sale en el cartel de otro partido','Dicen que fue un error de imprenta.',
+   ['Reírte del asunto',[0,0,1,4],'La gracia se hace viral. Pagas el café a todos.'],['Pedir explicaciones',[0,0,0,-1],'Pides explicaciones. Te las dan en cuatro páginas.']),
+ ev('prestamo','Un compañero te pide cien euros','Hasta fin de mes. Lleva tres años con el fin de mes.',
+   ['Prestarlos',[1,0,2,0],'Los prestas. Ahora tienes un amigo y un acreedor.'],['Negarte',[0,1,-1,0],'Te llaman roñoso. Pero con cien euros más.']),
+ ev('audio','Se filtra un audio en el grupo de mensajes','Alguien dejó el audio del barón criticando a la ejecutiva. Todos saben quién fue. Nadie lo dice.',
+   ['Quedarte callado',[1,0,0,0],'Callas. En política callar es coger sitio.'],['Decir que fuiste tú',[-4,3,1,6],'O eres valiente o no has pensado. Aún por decidir.']),
+ ev('comida','Un empresario te invita a comer','Quiere «conocer las inquietudes de la juventud del partido». Paga él.',
+   ['Aceptar la comida',[2,-3,0,1],'La comida estaba buena. Lo caro es la próxima.'],['Pagar tu parte',[0,3,0,0],'Pagas tu parte. Él te mira con respeto. Y con curiosidad.'])
+];
+const CARD_BY_ID={};ORDERS.concat(EVENTS).forEach(c=>CARD_BY_ID[c.id]=c);
+function nextCard(){
+  const wantEvent=grnd()<.38; const src=wantEvent?EVENTS:ORDERS;
+  let free=src.filter(c=>G.used.indexOf(c.id)<0); if(!free.length){G.used=G.used.filter(id=>!src.some(c=>c.id===id));free=src;}
+  const c=gpick(free); G.used.push(c.id); G.card=c.id; G.phase='card'; G.offer=[]; return c;
+}
+function answerCard(i){
+  const c=CARD_BY_ID[G.card]; const o=c.o[i]; if(!o)return false;
+  const b0=snap(); let dd=o.d; if(c.kind==='orden'&&o.k==='disobey')dd=[Math.round(dd[0]*.7),dd[1],dd[2]+1,dd[3]+1]; applyDelta(dd); G.lastD=diffFrom(b0); G.last=o.r; G.log.push(c.t+' → '+o.r); if(G.log.length>30)G.log.shift();
+  G.offer=pickOffer(); G.phase='action'; return true;
+}
+
+/* ===== ACCIONES LIBRES ===== */
+function rivalAbove(){const rk=ranking(false);const i=rk.findIndex(x=>x.o.me);return i>0?rk[i-1].o:(rk[1]?rk[1].o:null);}
+const ACTIONS={
+ barrio:{n:'Currar el barrio',d:'Puerta a puerta y mesas informativas. Poco brillo, mucha base.',x:'Sube Base. Es lo que mueve votos de verdad en tu provincia.',run:()=>{applyDelta([0,0,5,1]);return 'Conoces cada portal. Cada portal conoce tu cara y ya no la saluda.';}},
+ pelota:{n:'Hacerle la pelota a la dirección',d:'Sube Lealtad a costa de Convicción.',x:'Sube Lealtad fuerte. Baja Convicción un poco. Seguro.',run:()=>{applyDelta([5,-2,0,0]);return 'Elogias al barón con tanto entusiasmo que él mismo se sonroja.';}},
+ radio:{n:'Salir en la radio local',d:'Sube Fama. Puedes meter la pata.',x:'Sube Fama bastante. Un 25 % de meter la pata y perder algo.',run:()=>{if(grnd()<.25){applyDelta([-1,0,0,-2]);return 'Confundes el nombre de la alcaldesa con el de su perro. Hoy el perro tiene más audiencia.';}applyDelta([0,0,1,5]);return 'Hablas dos minutos. Te reconocen en la panadería.';}},
+ agrup:{n:'Montar una agrupación de barrio',d:'Mucha Base. A la dirección no siempre le hace gracia.',x:'Sube Base mucho y baja un poco la Lealtad: la dirección odia lo que no controla.',run:()=>{applyDelta([-1,0,6,0]);return 'Montas una agrupación de barrio. Tienes sede, logo y tres socios ofendidos.';}},
+ tertulia:{n:'Tertulia de madrugada',d:'Sube Fama. A veces dices lo que no debes.',x:'Sube Fama mucho. 30 % de decir algo que irrite a la dirección.',run:()=>{if(grnd()<.30){applyDelta([-3,1,0,6]);return 'Dices algo cierto a las tres de la mañana. A las nueve te llaman de la ejecutiva.';}applyDelta([-1,0,0,6]);return 'Tertulia a las tres de la madrugada. Ganas seguidores y pierdes sueño.';}},
+ zanja:{n:'Zancadillear a un rival',d:'Baja al que va por delante. Puede salirte mal.',x:'Baja Lealtad y Fama del rival que está justo por encima de ti. 35 % de que se descubra y te cueste caro. El rival lo recuerda.',run:()=>{const r=rivalAbove();if(!r){applyDelta([0,0,0,0]);return 'No tienes a nadie a quien zancadillear. Qué tristeza.';}
+   if(grnd()<.35){applyDelta([-5,-1,0,-3]);r.grudge+=1;return 'Tu zancadilla a '+r.name.split(' ')[0]+' se descubre. Ahora te saluda con dos besos y un cuchillo.';}
+   r.L=clamp(r.L-8,0,100);r.F=clamp(r.F-5,0,100);r.grudge+=1;return 'Le haces la cama a '+r.name.split(' ')[0]+'. Nadie sabe quién fue. Todos sospechan de ti.';}},
+ favor:{n:'Hacer un favor a la ejecutiva',d:'Lealtad y algo de Base.',x:'Sube Lealtad y algo de Base. Ellos recuerdan los favores. A ti te cuestan tiempo.',run:()=>{applyDelta([3,0,2,0]);return 'Recoges a un cargo en el aeropuerto. Te da las gracias con una mano en el hombro.';}},
+ curso:{n:'Curso de formación del partido',d:'Un poco de todo. Nada brilla, todo suma.',x:'Sube todo un poco, incluida la Convicción: aprendes lo que hay que decir y lo que piensas de verdad.',run:()=>{applyDelta([2,1,1,1]);return 'Aprendes a decir «sí, pero» en quince idiomas políticos.';}},
+ foto:{n:'Foto con el barón',d:'Requiere Lealtad 35. Fama y Lealtad.',x:'Solo si tu Lealtad es de 35 o más. Si no, no te dejan acercarte al barón.',need:s=>s.L>=35,run:()=>{applyDelta([2,0,0,4]);return 'La foto sale perfecta. Tú sales fenomenal. El barón sale cansado.';}},
+ estudiar:{n:'Estudiar el programa',d:'Sube Convicción. Casi nadie lo hace.',x:'Sube Convicción bastante. Es lo único del programa que lee alguien.',run:()=>{applyDelta([0,5,0,0]);return 'Lees el programa entero. Descubres que no coincide con lo que dicen en los mítines.';}},
+ pacto:{n:'Pactar con un rival',d:'Un aliado: ninguno ataca al otro.',x:'Escoge al rival que tienes justo por debajo. Os apoyáis: él no te zancadillea y tú ganas Lealtad y Base. El pacto se rompe si le atacas.',run:()=>{const rk=ranking(false);const i=rk.findIndex(x=>x.o.me);const r=rk[i+1]?rk[i+1].o:(rk[i-1]?rk[i-1].o:null);if(!r)return 'No hay con quién pactar.';r.ally=true;r.grudge=0;applyDelta([2,0,3,0]);return 'Pactas con '+r.name.split(' ')[0]+'. Ambos juráis lealtad. Ambos mentís un poco.';}}
+};
+const ACTION_KEYS=Object.keys(ACTIONS);
+function pickOffer(){
+  const ok=ACTION_KEYS.filter(k=>!ACTIONS[k].need||ACTIONS[k].need(G.st));
+  const out=['barrio']; const rest=ok.filter(k=>k!=='barrio');
+  while(out.length<4&&rest.length){const i=Math.floor(grnd()*rest.length);out.push(rest.splice(i,1)[0]);}
+  return out;
+}
+function doAction(id){
+  if(G.phase!=='action'||G.offer.indexOf(id)<0)return false;
+  const a=ACTIONS[id]; if(a.need&&!a.need(G.st))return false;
+  const b0=snap(); const msg=a.run(); G.lastD=diffFrom(b0); G.last=msg; G.log.push(a.n+' → '+msg); if(G.log.length>30)G.log.shift();
+  endTurn(); return true;
+}
+
+/* ===== MUNDO ===== */
+function rivalsTurn(){
+  G.rivals.forEach(r=>{
+    const a=ARCH[r.arch]; r.L=clamp(r.L+a.g[0]*1.35+gnorm()*2.2,0,100);r.B=clamp(r.B+a.g[1]*1.35+gnorm()*2.2,0,100);r.F=clamp(r.F+a.g[2]*1.35+gnorm()*2.2,0,100);
+  });
+  /* los rivales con rencor te la devuelven */
+  G.rivals.filter(r=>r.grudge>0&&!r.ally).forEach(r=>{
+    if(grnd()<.18*r.grudge){
+      if(grnd()<.5){applyDelta([-4,0,0,0]);G.last+=' · '+r.name.split(' ')[0]+' te la devuelve: habla mal de ti en la ejecutiva.';}
+      else{applyDelta([0,0,0,-3]);G.last+=' · '+r.name.split(' ')[0]+' te la devuelve: filtra una foto tuya con la boca llena.';}
+    }
+  });
+}
+function driftNat(){
+  const s={};Object.keys(G.nat).forEach(id=>s[id]=G.nat[id]*.9+BASE23[id]*.1);
+  G.nat=perturb(s,.035,grnd);
+}
+function endTurn(){
+  rivalsTurn(); driftNat(); G.turn++;
+  if(G.turn>TURNS){closeLists();}else nextCard();
+}
+function closeLists(){
+  G.listNoise={}; pool().forEach(o=>{G.listNoise[o.id]=gnorm()*(o.me?6*(1-G.st.L/160):6);});
+  G.list=ranking(true).map(x=>x.o.id); G.pos=G.list.indexOf('me')+1; G.phase='lists';
+}
+const CAMPAIGN={
+ puerta:{n:'Puerta a puerta',d:'Cada portal cuenta.',x:'+1,2 puntos de voto para tu partido en tu provincia. Sube Base.',bonus:()=>1.2,delta:[0,0,2,0],r:'Tocas mil timbres. Tres puertas se abren y una te regala un tupper.'},
+ redes:{n:'Ofensiva en redes',d:'Tu cara en todas las pantallas.',x:'+0,8 puntos de voto. Sube Fama.',bonus:()=>.8,delta:[0,0,0,3],r:'Publicas tanto que tu madre te pide que pares.'},
+ baron:{n:'Mitin con el barón',d:'Mucho más con Lealtad alta.',x:'+0,9 puntos de voto si tu Lealtad es 40 o más; +0,3 si no.',bonus:()=>G.st.L>=40?.9:.3,delta:[1,0,0,1],r:'El barón sube al escenario. Tú sales en el fondo, aplaudiendo.'}
+};
+function doCampaign(id){
+  const c=CAMPAIGN[id]; if(G.phase!=='campaign'||!c)return false;
+  const b0=snap(); G.camp=c.bonus(); applyDelta(c.delta); G.lastD=diffFrom(b0); G.last=c.r; G.log.push('Campaña → '+c.r); runElection(); return true;
+}
+
+/* ===== ELECCIONES ===== */
+function runElection(){
+  const final=perturb(G.nat,.025,grnd); G.final=final; const res=runSim(final); const idx=provIdx(); const pr=res.prov[idx];
+  const won=pr.seats[G.party]||0; const P=PROV[idx]; const V=P.w*1000; const votes={}; let elig=[];
+  Object.keys(pr.shares).forEach(id=>{votes[id]=pr.shares[id]/100*V; if(pr.shares[id]>=3&&votes[id]>0)elig.push(id);});
+  const cand=[]; elig.forEach(id=>{for(let k=1;k<=P.seats;k++)cand.push([votes[id]/k,id,k]);}); cand.sort((a,b)=>b[0]-a[0]);
+  const qWin=cand[P.seats-1]?cand[P.seats-1][0]:0, qLose=cand[P.seats]?cand[P.seats][0]:0;
+  const my=votes[G.party]||0; const p=G.pos; let margin,kind;
+  if(elig.indexOf(G.party)<0){kind='umbral';margin=Math.max(0,Math.round(V*.03-my));}
+  else if(p<=won){kind='dentro';margin=Math.max(1,Math.round(my-p*qLose));}
+  else{kind='fuera';margin=Math.max(1,Math.round(p*qWin-my));}
+  const z={};CTX.parties.forEach(q=>z[q.id]=gnorm());
+  G.el={won:won,pos:p,elected:p<=won,seatsByParty:pr.seats,shares:pr.shares,national:res.seats,margin:margin,kind:kind,V:V,votes:votes,seatsTotal:P.seats,z:z};
+  G.night={step:0}; G.phase='night';
+}
+function nightPartial(step){
+  const el=G.el; const out={};let sum=0;
+  Object.keys(el.shares).forEach(id=>{const f=1-step/10;out[id]=el.shares[id]*Math.exp((el.z[id]||0)*.22*f*f);sum+=out[id];});
+  Object.keys(out).forEach(id=>out[id]=out[id]/sum*100);
+  return out;
+}
+function finishNight(){G.night.step=10;G.phase='result';}
+function resultNext(){
+  if(G.el.elected){G.phase='end';G.done=true;G.out='diputado';recordRun();return;}
+  if(G.leg>=MAX_LEG){G.phase='end';G.done=true;G.out='retiro';recordRun();return;}
+  newLegislature();
+}
+function newLegislature(){
+  const seatsWon=G.el.won;
+  /* los rivales elegidos se van al Congreso; entran caras nuevas */
+  const rk=G.list.slice(0,seatsWon); const out=G.rivals.filter(r=>rk.indexOf(r.id)>=0).length;
+  G.rivals=G.rivals.filter(r=>rk.indexOf(r.id)<0);
+  for(let i=0;i<out;i++)G.rivals.push(newRival(gpick(ARCH_KEYS),6));
+  /* si te quedas cerca sube tu fama; si no, solo la experiencia */
+  if(G.el.kind==='fuera'&&G.el.margin<2500)G.st.F=clamp(G.st.F+4,0,100);
+  G.st.L=clamp(G.st.L*.92,0,100);G.st.B=clamp(G.st.B*.95,0,100);G.st.F=clamp(G.st.F*.92,0,100);
+  G.hist.push({leg:G.leg,pos:G.pos,won:G.el.won,margin:G.el.margin,kind:G.el.kind});
+  G.leg++;G.turn=1;G.camp=0;G.list=null;G.listNoise=null;G.pos=null;G.el=null;G.night=null;
+  G.nat=Object.assign({},G.final);nextCard();
+}
+function finalScore(){
+  if(G.out!=='diputado')return Math.round((G.st.L+G.st.B+G.st.F+G.st.C)/4*2);
+  return 500+(MAX_LEG-G.leg)*200+Math.round((G.st.L+G.st.B+G.st.F)/3)*2+Math.round(G.st.C);
+}
+function epilogueLines(){
+  const s=G.st; const out=[];
+  if(G.out==='diputado'){
+    out.push('Entras en el Congreso con el número '+G.pos+' de tu lista. Tu partido pone el escaño, tú pones la cara.');
+    if(s.L>=60&&s.C<=35)out.push('Eres el voto más obediente del grupo. Te llaman «el botón verde».');
+    else if(s.C>=65)out.push('La disciplina de voto te trata como a un virus. Te toleran porque no hay antídoto.');
+    else out.push('Tu grupo ya te pide que no hagas ruido. Tú ya piensas en ser portavoz.');
+    if(s.F>=60)out.push('Tu cuenta tiene más seguidores que el partido. Tus compañeros lo notan. Y lo anotan.');
+    if(s.B>=60)out.push('En tu barrio nadie se sorprende de que ganes. En el Congreso, tampoco entienden cómo.');
+  }else{
+    out.push('Pasan '+MAX_LEG+' legislaturas sin escaño. Una consultora te ofrece una mesa y un cargo con nombre en inglés.');
+    out.push('En tu despedida, la ejecutiva te regala una placa. La placa tiene el nombre de otra persona.');
+  }
+  return out;
+}
+function recordRun(){
+  const h=lsGet('carrera_hist',[]);
+  h.unshift({name:G.name,party:G.party,prov:G.prov,leg:G.leg,out:G.out,score:finalScore(),seed:G.seed});
+  lsSet('carrera_hist',h.slice(0,10)); lsSet('carrera_save',null);
+}
+
+/* ===== MONIGOTES ===== */
+function figure(seed,col,size,female){
+  size=size||44; const r=mulberry32(((seed*2654435761)>>>0)||1); const pick=a=>a[Math.floor(r()*a.length)];
+  const skin=pick(['#F2C9A5','#E0A980','#C68B63','#8D5A3B','#F6D7BC','#6B4430']);
+  const hair=pick(['#2B2118','#4A3022','#8C5A2B','#C9A15A','#BDBDBD','#111111','#7A2E1E']);
+  let style=Math.floor(r()*5); if(female&&(style===0||style===1))style=2+Math.floor(r()*3);
+  const glasses=r()<.35; const tie=pick(['#F4F4F4','#C8102E','#1F3A93','#E8B82D','#2E8B57']);
+  let h='<svg class="fig" width="'+size+'" height="'+Math.round(size*1.4)+'" viewBox="0 0 40 56" aria-hidden="true">';
+  h+='<rect x="7" y="29" width="26" height="27" rx="7" fill="'+col+'"/><polygon points="16,29 24,29 20,38" fill="#F4F4F4"/>';
+  h+='<polygon points="19,35 21,35 22.5,46 20,49 17.5,46" fill="'+tie+'"/><rect x="17" y="24" width="6" height="6" fill="'+skin+'"/>';
+  if(style===2)h+='<path d="M8.5 30 Q6 8 20 4 Q34 8 31.5 30 L28 30 Q29 12 20 10 Q11 12 12 30Z" fill="'+hair+'"/>';
+  h+='<circle cx="20" cy="16" r="10.5" fill="'+skin+'"/>';
+  if(style===1)h+='<path d="M9.5 15 Q10 4 20 4.5 Q30 4 30.5 15 Q26 9 20 9.5 Q14 9 9.5 15Z" fill="'+hair+'"/>';
+  if(style===2)h+='<path d="M9.5 14 Q11 4 20 4.5 Q29 4 30.5 14 Q20 7 9.5 14Z" fill="'+hair+'"/>';
+  if(style===3)h+='<path d="M9.5 14 Q13 3 24 5 Q31 7 30.5 14 Q22 8 14 12Z" fill="'+hair+'"/>';
+  if(style===4)h+='<g fill="'+hair+'"><circle cx="12" cy="9" r="4.5"/><circle cx="20" cy="6.5" r="5"/><circle cx="28" cy="9" r="4.5"/></g>';
+  h+='<circle cx="16" cy="16.5" r="1.3" fill="#222"/><circle cx="24" cy="16.5" r="1.3" fill="#222"/>';
+  if(glasses)h+='<g fill="none" stroke="#222" stroke-width="1"><circle cx="16" cy="16.5" r="3.3"/><circle cx="24" cy="16.5" r="3.3"/><line x1="19.3" y1="16.5" x2="20.7" y2="16.5"/></g>';
+  h+='<path d="M16.5 21 Q20 23.5 23.5 21" fill="none" stroke="#222" stroke-width="1.1" stroke-linecap="round"/></svg>';
+  return h;
+}
+
+/* ===== HEMICICLO ===== */
+const HEMI=(function(){
+  const rows=10,r0=.4,r1=1,N=TOTAL_SEATS;const radii=[];for(let k=0;k<rows;k++)radii.push(r0+(r1-r0)*k/(rows-1));
+  const tot=radii.reduce((a,x)=>a+x,0);const counts=radii.map(r=>Math.round(N*r/tot));
+  let diff=N-counts.reduce((a,x)=>a+x,0);for(let k=rows-1;diff!==0;k=(k+rows-1)%rows){counts[k]+=Math.sign(diff);diff-=Math.sign(diff);}
+  const pts=[];counts.forEach((n,k)=>{for(let j=0;j<n;j++){pts.push({a:Math.PI*(1-(n===1?.5:j/(n-1))),r:radii[k]});}});
+  pts.sort((x,y)=>y.a-x.a||x.r-y.r);return pts;
+})();
+function hemiSVG(seats,mine){
+  const W=600,H=325,cx=300,cy=300,R=288;const order=CTX.parties.map(p=>p.id).filter(id=>(seats[id]||0)>0).sort((a,b)=>PT[a].lr-PT[b].lr);
+  const colors=[];order.forEach(id=>{for(let k=0;k<seats[id];k++)colors.push(COL(id));});const rad=R*.6/9*.40;
+  let out='<svg class="hemi" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Hemiciclo" style="width:100%;height:auto;display:block">';
+  HEMI.forEach((p,i)=>{const x=cx+p.r*R*Math.cos(p.a),y=cy-p.r*R*Math.sin(p.a);const c=i<colors.length?colors[i]:'#27335F';
+    out+='<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="'+rad.toFixed(1)+'" fill="'+c+'"'+(i>=colors.length?' opacity=".55"':'')+'/>';});
+  return out+'</svg>';
+}
+function legend(seats){return CTX.parties.map(p=>p.id).filter(id=>(seats[id]||0)>0).sort((a,b)=>seats[b]-seats[a]).map(id=>'<span><i class="dot" style="background:'+COL(id)+'"></i>'+PT[id].s+' <b>'+seats[id]+'</b></span>').join('');}
+
+/* ===== VISTAS ===== */
+const SETUP={party:'PPE',prov:'J',name:'',seed:'',female:false};
+const esc=t=>String(t==null?'':t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function diffLabel(s0){return s0===0?['Extrema','Tu partido no saca escaño aquí hoy'] : s0===1?['Muy difícil','Un escaño disputado']:s0<=3?['Difícil','Pocos escaños, muchos aspirantes']:['Asequible','Hay sitio si trabajas'];}
+function viewTitle(){
+  const save=lsGet('carrera_save',null); const hist=lsGet('carrera_hist',[]);
+  const picks=PLAYABLE_IDS.map(id=>'<button class="pick" data-pick="'+id+'" aria-pressed="'+(SETUP.party===id)+'" style="--pc:'+COL(id)+'">'+figure(PT[id].lr*31,COL(id),38)+'<h3>'+esc(PT[id].s)+'</h3><span class="mut" style="font-size:12.5px">'+esc(PT[id].name)+'</span><p>'+esc(FP_TABLE.find(p=>p.id===id).tag)+'</p></button>').join('');
+  const opts=PROV.slice().sort((a,b)=>a.name.localeCompare(b.name,'es')).map(P=>{const s0=baseSeats(SETUP.party,P.id);return '<option value="'+P.id+'"'+(SETUP.prov===P.id?' selected':'')+'>'+esc(P.name)+' · '+P.seats+' esc. · tu partido: '+s0+'</option>';}).join('');
+  const s0=baseSeats(SETUP.party,SETUP.prov); const dl=diffLabel(s0); const P=PROV[PROV_IDX[SETUP.prov]];
+  return '<h2 class="h-sec" style="font-size:44px">Carrera política</h2><p class="note" style="margin:0 0 6px">Empiezas de militante en una provincia real y quieres llegar al Congreso. Los partidos y las personas son inventados. El reparto de escaños, no.</p>'+
+   (save?'<div class="panel" style="margin:12px 0;border-color:var(--acc)"><b>Tienes una partida a medias.</b> <span class="mut">'+esc(save.name)+' · '+esc(PT[save.party].s)+' · Legislatura '+save.leg+'</span><div class="row" style="margin-top:10px"><button class="btn sm" data-act="continue">Continuar</button><button class="btn sm ghost" data-act="discard">Descartar</button></div></div>':'')+
+   '<div class="eyebrow" style="margin:18px 0 8px">1 · Tu partido</div><div class="setup">'+picks+'</div>'+
+   '<div class="eyebrow" style="margin:18px 0 8px">2 · Tu provincia</div><div class="panel"><label class="field" style="margin:0"><select id="provSel" style="width:100%">'+opts+'</select></label>'+
+   '<p style="margin:10px 0 0"><span class="chip">Dificultad: <b style="color:var(--fg)">'+dl[0]+'</b></span> <span class="mut" style="font-size:13px">'+dl[1]+'. '+esc(P.name)+' reparte '+P.seats+' escaños.</span></p></div>'+
+   '<div class="eyebrow" style="margin:18px 0 8px">3 · Tú</div><div class="panel"><div class="row" style="gap:14px;align-items:flex-start">'+
+   '<div style="flex:none">'+figure(((SETUP.seed|0)*7919)%999983+1,COL(SETUP.party),64,SETUP.female)+'</div><div style="flex:1;min-width:200px"><label class="field"><span>Nombre (vacío = al azar)</span><input type="text" id="nameIn" maxlength="40" value="'+esc(SETUP.name)+'" placeholder="Ej.: Marta Gil Ortega" style="width:100%"></label>'+
+   '<label class="field"><span>Semilla (vacío = al azar). Con la misma semilla, la misma partida.</span><input type="text" id="seedIn" maxlength="9" inputmode="numeric" value="'+esc(SETUP.seed)+'" style="width:100%"></label>'+
+   '<div class="seg" data-seg="female"><button data-v="0" aria-pressed="'+(!SETUP.female)+'">Hombre</button><button data-v="1" aria-pressed="'+SETUP.female+'">Mujer</button></div></div></div></div>'+
+   '<div class="row" style="margin-top:18px"><button class="btn" data-act="start" style="font-size:17px">Empezar de militante</button><span class="chip" title="Fundar un partido llegará en una fase posterior">Fundar un partido: próximamente</span></div>'+
+   (hist.length?'<div class="eyebrow" style="margin:26px 0 8px">Últimas carreras</div><div class="panel">'+hist.map(h=>'<div class="rowline"><b>'+esc(h.name)+'</b> <span class="mut">'+esc(PT[h.party]?PT[h.party].s:h.party)+' · '+esc(h.prov)+' · '+(h.out==='diputado'?'Diputado/a en la legislatura '+h.leg:'Sin escaño')+'</span><span class="sp"></span><b class="mono">'+h.score+'</b></div>').join('')+'</div>':'')+
+   '<details style="margin-top:22px"><summary>Cómo se juega</summary><div class="panel" style="margin-top:8px"><p style="margin:0 0 8px">Cada legislatura tiene 8 semestres. En cada uno recibes una orden del partido o un imprevisto, y después eliges cómo pasas el semestre.</p><p style="margin:0 0 8px">Tu <b>puesto en la lista</b> sale de tu Lealtad, tu Base y tu Fama. Al cierre de listas se fija, y el día de las elecciones los escaños se reparten con el sistema real (D\'Hondt, 3 % por provincia).</p><p style="margin:0">Si tu partido logra tantos escaños como tu puesto, eres diputado. Si no, vuelves a empezar con lo aprendido. Tienes '+MAX_LEG+' legislaturas.</p></div></details>';
+}
+const statBar=(k,v)=>'<div class="stat" title="'+esc(STAT_HELP[k])+'"><span>'+STAT_NAMES[k]+'</span><div class="t"><i style="width:'+Math.round(v)+'%;background:'+({L:'#6AA7FF',C:'#C28BFF',B:'#43D18B',F:'#FFC93C'})[k]+'"></i></div><b class="mono">'+Math.round(v)+'</b></div>';
+function hud(){
+  const rk=ranking(G.phase==='campaign'||G.phase==='night'||G.phase==='result'); const pos=rk.findIndex(x=>x.o.me)+1; const ps=G.phase==='campaign'||G.phase==='night'||G.phase==='result'?(G.el?G.el.won:projSeats()):projSeats();
+  const lo=Math.max(0,Math.min(pos-3,rk.length-5)), hi=Math.min(rk.length,lo+5);
+  const ladder=rk.slice(lo,hi).map((x,i)=>{const n=lo+i+1;const inn=n<=ps;return '<div class="lad'+(x.o.me?' me':'')+'">'+'<b class="mono n">'+n+'</b>'+figure(x.o.look,x.o.me?COL(G.party):'#5D6A96',22,x.o.female)+'<span class="nm">'+esc(x.o.me?G.name+' (tú)':x.o.name)+'</span><i class="'+(inn?'in':'out')+'"></i></div>';}).join('');
+  const dots=Array.from({length:TURNS},(_,i)=>'<i class="'+(i<G.turn-1||G.phase==='lists'||G.phase==='campaign'||G.phase==='night'||G.phase==='result'?'on':(i===G.turn-1?'cur':''))+'"></i>').join('');
+  return '<aside class="ghud panel"><div class="row" style="margin-bottom:8px"><b style="color:'+COL(G.party)+'">'+esc(PT[G.party].s)+'</b><span class="mut" style="font-size:13px">· '+esc(PROV[provIdx()].name)+'</span></div>'+
+   '<div class="eyebrow">Legislatura '+G.leg+' de '+MAX_LEG+'</div><div class="dots">'+dots+'</div>'+
+   ['L','C','B','F'].map(k=>statBar(k,G.st[k])).join('')+
+   '<div class="facts" style="margin:12px 0 8px"><div class="fact"><b>'+pos+'</b><span>Tu puesto en la lista</span></div><div class="fact"><b style="color:'+COL(G.party)+'">'+ps+'</b><span>Escaños de tu partido aquí</span></div></div>'+
+   '<div class="eyebrow" style="margin:6px 0 4px">Tu entorno en la lista</div><div class="ladder">'+ladder+'</div><p class="note" style="margin:6px 0 0;font-size:12px">Punto verde: puestos que hoy dan escaño.</p></aside>';
+}
+const dchips=d=>d?['L','C','B','F'].filter(k=>d[k]).map(k=>'<span class="dchip '+(d[k]>0?'up':'dn')+'">'+STAT_NAMES[k]+' '+(d[k]>0?'+':'')+d[k]+'</span>').join(''):'';
+function viewCard(){
+  const c=CARD_BY_ID[G.card]; const isEv=c.kind==='evento';
+  const who=isEv?'Imprevisto':'Orden del partido';
+  const opts=c.o.map((o,i)=>{const cls=isEv?'ev':(o.k==='obey'?'obey':o.k==='nuance'?'nuance':'disobey');
+    const tag=isEv?'':(o.k==='obey'?'Obedecer':o.k==='nuance'?'Matizar':'Desobedecer');
+    return '<button class="gopt '+cls+'" data-act="ans" data-i="'+i+'">'+(tag?'<small>'+tag+'</small>':'')+'<b>'+esc(o.l)+'</b></button>';}).join('');
+  return '<div class="gwrap"><section><div class="eyebrow">Semestre '+G.turn+' de '+TURNS+' · '+who+'</div>'+
+   '<div class="gcard" id="gcard" data-swipe="'+(isEv?'2':'3')+'"><div class="gc-fig">'+figure(G.seed+G.turn*13+G.leg*101,isEv?'#5D6A96':COL(G.party),56)+'</div><h3>'+esc(c.t)+'</h3>'+
+   '<details><summary>Ver más</summary><p>'+esc(c.x)+'</p></details><div class="gopts '+(isEv?'two':'three')+'">'+opts+'</div><p class="swhint">Arrastra la tarjeta: derecha '+(isEv?'= primera opción':'= obedecer')+', izquierda '+(isEv?'= segunda':'= desobedecer')+'.</p></div></section>'+hud()+'</div>';
+}
+function viewAction(){
+  const tiles=G.offer.map(id=>{const a=ACTIONS[id];return '<div class="atile"><b>'+esc(a.n)+'</b><span>'+esc(a.d)+'</span><details><summary>Ver más</summary><p>'+esc(a.x)+'</p></details><button class="btn sm" data-act="do" data-id="'+id+'">Hacer esto</button></div>';}).join('');
+  return '<div class="gwrap"><section><div class="eyebrow">Semestre '+G.turn+' de '+TURNS+' · Cómo pasas el semestre</div>'+
+   '<div class="res"><p style="margin:0 0 8px">'+esc(G.last)+'</p><div>'+dchips(G.lastD)+'</div></div>'+
+   '<div class="atiles">'+tiles+'</div></section>'+hud()+'</div>';
+}
+function viewLists(){
+  const rk=ranking(true); const ps=projSeats(); const pos=G.pos; const show=rk.slice(0,Math.max(ps+3,pos+2,8));
+  const rows=show.map((x,i)=>{const n=i+1;return '<div class="lrow'+(x.o.me?' me':'')+(n===ps?' cut':'')+'"><b class="mono n">'+n+'</b>'+figure(x.o.look,x.o.me?COL(G.party):'#5D6A96',26,x.o.female)+'<span class="nm">'+esc(x.o.me?G.name+' (tú)':x.o.name)+'</span><span class="mut" style="font-size:12px">'+(x.o.me?'':esc(ARCH[x.o.arch].n))+'</span><i class="'+(n<=ps?'in':'out')+'"></i></div>';}).join('');
+  const ok=pos<=ps;
+  return '<div class="gwrap"><section><div class="eyebrow">Cierre de listas · '+esc(PROV[provIdx()].name)+'</div><h2 class="h-sec">Lista cerrada de '+esc(PT[G.party].s)+'</h2>'+
+   '<div class="verdict '+(ok?'ok':'ko')+'" style="margin:10px 0 14px"><div class="eyebrow">Tu puesto</div><h3>Número '+pos+'</h3><p style="margin:6px 0 0">'+(ok?'Hoy los números te dan escaño. Una mala noche puede quitártelo.':ps===0?'Tu partido no saca escaño aquí hoy. Haría falta un milagro, o una buena campaña.':'Tu partido saca '+ps+' escaño'+(ps===1?'':'s')+' en la proyección. Con tu puesto quedas fuera, pero la noche electoral da sorpresas.')+'</p></div>'+
+   '<div class="panel">'+rows+'</div><details style="margin-top:10px"><summary>Por qué estás aquí</summary><p class="note">Tu puesto sale de tu Lealtad, tu Base y tu Fama a partes casi iguales, más un poco de lo que pase en los despachos al cerrar la lista. Quienes tienen más Lealtad sufren menos ese ruido.</p></details>'+
+   '<div class="row" style="margin-top:14px"><button class="btn" data-act="to-campaign">Empezar la campaña →</button></div></section>'+hud()+'</div>';
+}
+function viewCampaign(){
+  const tiles=Object.keys(CAMPAIGN).map(id=>{const a=CAMPAIGN[id];return '<div class="atile"><b>'+esc(a.n)+'</b><span>'+esc(a.d)+'</span><details><summary>Ver más</summary><p>'+esc(a.x)+'</p></details><button class="btn sm" data-act="camp" data-id="'+id+'">Hacer esto</button></div>';}).join('');
+  return '<div class="gwrap"><section><div class="eyebrow">Campaña electoral · últimas semanas</div><h2 class="h-sec">Una decisión antes de abrir las urnas</h2><p class="note" style="margin:6px 0 14px">Tu puesto ya está fijado. Lo que hagas ahora mueve votos en tu provincia.</p><div class="atiles">'+tiles+'</div></section>'+hud()+'</div>';
+}
+function nightBars(sh){
+  return Object.keys(sh).filter(id=>id!=='OTROS'&&sh[id]>=1).sort((a,b)=>sh[b]-sh[a]).slice(0,6).map(id=>'<div class="nb"><span><i class="dot" style="background:'+COL(id)+'"></i>'+esc(PT[id].s)+'</span><div class="t"><i style="width:'+Math.min(100,sh[id]*2.2)+'%;background:'+COL(id)+'"></i></div><b class="mono">'+f1(sh[id])+' %</b></div>').join('');
+}
+function viewNight(){
+  const el=G.el,step=G.night.step,P=PROV[provIdx()];
+  const sh=step>=10?el.shares:nightPartial(step); const alloc=allocate(sh,el.seatsTotal,'dhondt',3);
+  const slots=[];Object.keys(alloc).sort((a,b)=>sh[b]-sh[a]).forEach(id=>{for(let k=0;k<alloc[id];k++)slots.push(id);});
+  const mySlots=slots.filter(id=>id===G.party).length; const inside=G.pos<=mySlots;
+  const slotHtml=slots.map(id=>'<i class="slot" style="background:'+COL(id)+'" title="'+esc(PT[id].s)+'"></i>').join('');
+  let status='';
+  if(step<10)status='Escrutado el '+step*10+' %. Ahora mismo '+esc(PT[G.party].s)+' tiene '+mySlots+' escaño'+(mySlots===1?'':'s')+' aquí. Tu puesto es el '+G.pos+': <b style="color:'+(inside?'var(--good)':'var(--bad)')+'">'+(inside?'DENTRO':'FUERA')+'</b>.';
+  else status='Escrutinio al 100 %. '+(el.elected?'Eres diputado/a.':'Te quedas fuera.');
+  const hemi=step>=10?'<div class="panel" style="margin-top:12px"><div class="eyebrow" style="margin-bottom:6px">Congreso resultante</div>'+hemiSVG(el.national)+'<div class="legend">'+legend(el.national)+'</div></div>':'';
+  return '<section class="night1"><div class="night-top"><div><div class="eyebrow">Noche electoral · '+esc(P.name)+'</div><div class="pct" id="npct">'+(step*10)+'<small>%</small></div></div><span class="sp"></span><div class="row">'+(step<10?'<button class="btn" data-act="night-play">'+(G.nightRun?'⏸ Pausar':'▶ Seguir')+'</button><button class="btn ghost" data-act="night-skip">Saltar</button>':'<button class="btn" data-act="night-done">Ver mi resultado →</button>')+'</div></div>'+
+   '<div class="progress"><i style="width:'+step*10+'%"></i></div><div class="ticker">'+status+'</div>'+
+   '<div class="panel" style="margin-top:12px"><div class="eyebrow" style="margin-bottom:8px">Voto en tu provincia</div>'+nightBars(sh)+'<div class="eyebrow" style="margin:14px 0 6px">'+el.seatsTotal+' escaños en juego</div><div class="slots">'+slotHtml+'</div></div>'+hemi+'</section>';
+}
+function viewResult(){
+  const el=G.el; const P=PROV[provIdx()]; const v=n=>n.toLocaleString('es-ES');
+  let cls,title,txt;
+  if(el.elected){cls='ok';title='Eres diputado/a';txt=el.margin<2500?'Tu escaño nº '+G.pos+' se decidió por unos '+v(el.margin)+' votos. Un autobús mal aparcado en un colegio habría bastado.':el.margin<15000?'Tu escaño nº '+G.pos+' se salvó por unos '+v(el.margin)+' votos de margen.':'Tu escaño nº '+G.pos+' entró con holgura: unos '+v(el.margin)+' votos de margen.';}
+  else if(el.kind==='umbral'){cls='ko';title='Sin escaño';txt='Tu partido no llega al 3 % en '+P.name+'. Le faltaron unos '+v(el.margin)+' votos para entrar en el reparto.';}
+  else{cls='ko';title='Te quedas fuera';txt=(el.margin<2500?'El escaño nº '+G.pos+' se te escapó por unos '+v(el.margin)+' votos.':'Al escaño nº '+G.pos+' le faltaron unos '+v(el.margin)+' votos.')+' En el despacho dicen que «la próxima será la buena».';}
+  return '<section class="night1"><div class="verdict '+cls+'"><div class="eyebrow">Resultado · '+esc(P.name)+' · Legislatura '+G.leg+'</div><h3>'+title+'</h3><p style="margin:8px 0 0">'+txt+'</p></div>'+
+   '<div class="facts" style="margin-top:14px"><div class="fact"><b>'+G.pos+'</b><span>Tu puesto</span></div><div class="fact"><b>'+el.won+'</b><span>Escaños de tu partido aquí</span></div><div class="fact"><b>'+f1(el.shares[G.party])+' %</b><span>Voto de tu partido aquí</span></div></div>'+
+   '<div class="row" style="margin-top:14px">'+(el.elected?'<button class="btn" data-act="res-next">Ver mi carrera →</button>':(G.leg>=MAX_LEG?'<button class="btn" data-act="res-next">Retirarte →</button>':'<button class="btn" data-act="res-next">Otra legislatura →</button>'))+'</div></section>';
+}
+function viewEnd(){
+  const win=G.out==='diputado'; const lines=epilogueLines().map(t=>'<p style="margin:0 0 8px">'+esc(t)+'</p>').join('');
+  return '<section class="night1"><div class="verdict '+(win?'ok':'mid')+'"><div class="eyebrow">'+esc(G.name)+' · '+esc(PT[G.party].s)+' · '+esc(PROV[provIdx()].name)+'</div><h3>'+(win?'Diputado/a del Congreso':'Fuera de la política')+'</h3></div>'+
+   '<div class="panel" style="margin-top:12px"><div class="row" style="align-items:flex-start;gap:16px"><div>'+figure(G.look,COL(G.party),84,G.female)+'</div><div style="flex:1;min-width:220px">'+lines+'</div></div></div>'+
+   '<div class="facts" style="margin-top:12px"><div class="fact"><b>'+finalScore()+'</b><span>Puntuación</span></div><div class="fact"><b>'+G.leg+'</b><span>Legislaturas</span></div>'+['L','C','B','F'].map(k=>'<div class="fact"><b>'+Math.round(G.st[k])+'</b><span>'+STAT_NAMES[k]+'</span></div>').join('')+'</div>'+
+   '<div class="row" style="margin-top:14px"><button class="btn" data-act="copy">Copiar resultado</button><button class="btn ghost" data-act="again">Nueva partida</button></div></section>';
+}
+
+/* ===== RENDER Y EVENTOS ===== */
+let nightTimer=null;
+function stopNight(){if(nightTimer){clearInterval(nightTimer);nightTimer=null;}if(G)G.nightRun=false;}
+function render(){
+  const root=document.getElementById('app'); let h;
+  if(!G)h=viewTitle();
+  else{switch(G.phase){case 'card':h=viewCard();break;case 'action':h=viewAction();break;case 'lists':h=viewLists();break;case 'campaign':h=viewCampaign();break;case 'night':h=viewNight();break;case 'result':h=viewResult();break;default:h=viewEnd();}
+    if(!G.done)lsSet('carrera_save',G);}
+  root.innerHTML=h; bindSwipe();
+}
+function bindSwipe(){
+  const c=document.getElementById('gcard'); if(!c)return; let x0=null,dx=0;
+  c.addEventListener('pointerdown',e=>{if(e.target.closest('button,summary,details'))return;x0=e.clientX;dx=0;});
+  c.addEventListener('pointermove',e=>{if(x0==null)return;dx=e.clientX-x0;c.style.transform='translateX('+dx*.6+'px) rotate('+dx*.04+'deg)';c.style.borderColor=dx>40?'var(--good)':dx<-40?'var(--bad)':'';});
+  const end=()=>{if(x0==null)return;const n=+c.dataset.swipe;const d=dx;x0=null;c.style.transform='';c.style.borderColor='';
+    if(d>90)pickAnswer(0);else if(d<-90)pickAnswer(n===3?2:1);};
+  c.addEventListener('pointerup',end);c.addEventListener('pointercancel',()=>{x0=null;c.style.transform='';});
+}
+function pickAnswer(i){if(!G||G.phase!=='card')return;if(answerCard(i))render();}
+function startFromSetup(){
+  const seed=(String(SETUP.seed).replace(/\D/g,'')|0)||((Date.now()%900000000)+1);
+  newGame({party:SETUP.party,prov:SETUP.prov,name:SETUP.name.trim().slice(0,40),female:SETUP.female,seed:seed}); render();
+}
+function nightTick(){
+  if(!G||G.phase!=='night'){stopNight();return;}
+  if(G.night.step<10){G.night.step++;render();}
+  if(G.night.step>=10)stopNight();
+}
+document.addEventListener('click',e=>{
+  const t=e.target.closest('button'); if(!t)return;
+  if(t.dataset.pick){SETUP.party=t.dataset.pick;render();return;}
+  const seg=t.closest('[data-seg="female"]'); if(seg){SETUP.female=t.dataset.v==='1';render();return;}
+  const a=t.dataset.act; if(!a)return;
+  switch(a){
+    case 'start':startFromSetup();break;
+    case 'continue':{const s=lsGet('carrera_save',null);if(s){G=s;render();}break;}
+    case 'discard':lsSet('carrera_save',null);render();break;
+    case 'ans':pickAnswer(+t.dataset.i);break;
+    case 'do':if(doAction(t.dataset.id))render();break;
+    case 'to-campaign':G.phase='campaign';render();break;
+    case 'camp':if(doCampaign(t.dataset.id))render();break;
+    case 'night-play':if(G.nightRun){stopNight();render();}else{G.nightRun=true;nightTimer=setInterval(nightTick,800);nightTick();}break;
+    case 'night-skip':stopNight();G.night.step=10;render();break;
+    case 'night-done':stopNight();finishNight();render();break;
+    case 'res-next':resultNext();render();break;
+    case 'copy':{const txt='Carrera política · '+G.name+' ('+PT[G.party].s+', '+PROV[provIdx()].name+') · '+(G.out==='diputado'?'Diputado/a en la legislatura '+G.leg+', puesto '+G.pos:'Sin escaño tras '+G.leg+' legislaturas')+' · '+finalScore()+' puntos';
+      const done=()=>{t.textContent='Copiado';setTimeout(()=>t.textContent='Copiar resultado',1600);};
+      if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(txt).then(done,()=>{t.textContent='No se pudo copiar';});else t.textContent='No se pudo copiar';break;}
+    case 'again':stopNight();lsSet('carrera_save',null);G=null;render();break;
+    case 'home':stopNight();if(G&&!G.done){lsSet('carrera_save',G);}G=null;render();break;
+  }
+});
+document.addEventListener('input',e=>{const t=e.target; if(t.id==='nameIn')SETUP.name=t.value; else if(t.id==='seedIn')SETUP.seed=t.value;});
+document.addEventListener('change',e=>{const t=e.target; if(t.id==='provSel'){SETUP.prov=t.value;render();}});
+document.addEventListener('keydown',e=>{
+  if(!G||G.phase!=='card')return; if(e.target&&e.target.matches&&e.target.matches('input,select,textarea'))return;
+  const isEv=CARD_BY_ID[G.card].kind==='evento';
+  if(e.key==='ArrowRight')pickAnswer(0); else if(e.key==='ArrowLeft')pickAnswer(isEv?1:2); else if(e.key==='ArrowDown'&&!isEv)pickAnswer(1);
+});
+(function init(){render();})();
+
+</script>
+</body></html>

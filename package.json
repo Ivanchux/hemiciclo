@@ -1,0 +1,12 @@
+{
+  "name": "hemiciclo",
+  "version": "3.0.0",
+  "private": true,
+  "description": "Simulador de elecciones generales de España en directo (29N 2026)",
+  "scripts": {
+    "build": "python build.py",
+    "test": "node tests/v3smoke.js && node tests/v3live.js",
+    "shots": "node tests/v3shot.js"
+  },
+  "devDependencies": { "jsdom": "^24.0.0", "playwright": "^1.47.0" }
+}
